@@ -3,2576 +3,360 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="واصل - منصة الأمان الرقمي الشاملة | بريد مؤقت، توليد بطاقات افتراضية، مستشار أمني ذكي">
-    <meta name="keywords" content="بريد مؤقت، بطاقات افتراضية، أمن رقمي، حماية البيانات، واصل">
-    <meta name="author" content="Adam Ahmed">
-    <meta property="og:title" content="واصل - حصنك الرقمي الأحمر">
-    <meta property="og:description" content="منصة الأمان الرقمي المتكاملة مع الذكاء الاصطناعي">
-    <meta property="og:type" content="website">
-    <meta name="theme-color" content="#FF0000">
-    <title>واصل | Wasel - حصنك الرقمي الأحمر</title>
-    
+    <title>WASEL | واصِل - Cyber Defense</title>
     <style>
-        /* ═══════════════════════════════════════════════════════════════
-           GLOBAL RESET & RTL FOUNDATION
-        ═══════════════════════════════════════════════════════════════ */
+        /* CSS Variables for Premium Aesthetic */
+        :root {
+            --space-blue: #0a192f;
+            --pure-black: #000000;
+            --neon-red: #FF0000;
+            --cyber-orange: #FF4500;
+            --glass-bg: rgba(10, 25, 47, 0.4);
+            --glass-border: rgba(255, 0, 0, 0.2);
+            --text-main: #e6f1ff;
+            --text-muted: #8892b0;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            -webkit-tap-highlight-color: transparent;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
         }
 
-        :root {
-            --primary-red: #FF0000;
-            --dark-red: #CC0000;
-            --neon-red: #FF3333;
-            --pure-black: #000000;
-            --deep-black: #0A0A0A;
-            --card-black: #121212;
-            --border-red: rgba(255, 0, 0, 0.3);
-            --glow-red: 0 0 20px rgba(255, 0, 0, 0.5);
-            --transition-smooth: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-
-        @font-face {
-            font-family: 'Cairo';
-            font-display: swap;
-            src: local('Cairo');
-        }
-
-        body, html {
-            font-family: 'Cairo', 'Segoe UI', Tahoma, sans-serif;
-            background: var(--pure-black);
-            color: #FFFFFF;
+        body {
+            background: radial-gradient(circle at top right, var(--space-blue), var(--pure-black) 80%);
+            color: var(--text-main);
+            min-height: 100vh;
             overflow-x: hidden;
-            min-height: 100vh;
-            position: relative;
-        }
-
-        /* ═══════════════════════════════════════════════════════════════
-           RED SPARK PARTICLE SYSTEM BACKGROUND
-        ═══════════════════════════════════════════════════════════════ */
-        #particle-canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            pointer-events: none;
-            background: radial-gradient(ellipse at center, #0a0a0a 0%, #000000 100%);
-        }
-
-        /* ═══════════════════════════════════════════════════════════════
-           ANIMATED WASEL SHIELD LOGO
-        ═══════════════════════════════════════════════════════════════ */
-        .wasel-logo-container {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-
-        .wasel-shield {
-            width: 50px;
-            height: 60px;
-            position: relative;
-            animation: shield-pulse 2s ease-in-out infinite;
-        }
-
-        .shield-svg {
-            filter: drop-shadow(var(--glow-red));
-        }
-
-        @keyframes shield-pulse {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5)); }
-            50% { transform: scale(1.05); filter: drop-shadow(0 0 25px rgba(255, 0, 0, 0.8)); }
-        }
-
-        .wasel-brand-text {
-            font-size: 28px;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary-red), var(--neon-red));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            letter-spacing: 1px;
-        }
-
-        /* ═══════════════════════════════════════════════════════════════
-           MAIN CONTAINER & PAGE SYSTEM
-        ═══════════════════════════════════════════════════════════════ */
-        #app-container {
-            position: relative;
-            z-index: 10;
-            min-height: 100vh;
-            padding-bottom: 80px;
-        }
-
-        .page-view {
-            display: none;
-            opacity: 0;
-            transform: translateY(20px);
-            transition: var(--transition-smooth);
-            padding: 20px;
-            max-width: 1400px;
-            margin: 80px auto 0;
-        }
-
-        .page-view.active {
-            display: block;
-            opacity: 1;
-            transform: translateY(0);
-            animation: page-enter 0.5s ease-out;
-        }
-
-        @keyframes page-enter {
-            from {
-                opacity: 0;
-                transform: translateY(30px) scale(0.98);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0) scale(1);
-            }
-        }
-
-        /* ═══════════════════════════════════════════════════════════════
-           BOTTOM NAVIGATION (MOBILE-FIRST)
-        ═══════════════════════════════════════════════════════════════ */
-        .bottom-nav {
-            position: fixed;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            background: linear-gradient(180deg, rgba(18, 18, 18, 0.95) 0%, rgba(10, 10, 10, 0.98) 100%);
-            backdrop-filter: blur(20px);
-            border-top: 2px solid var(--border-red);
-            display: flex;
-            justify-content: space-around;
-            padding: 12px 0;
-            z-index: 1000;
-            box-shadow: 0 -5px 30px rgba(255, 0, 0, 0.2);
-        }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            color: #888;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            padding: 8px 12px;
-            border-radius: 12px;
-            flex: 1;
-            max-width: 80px;
-        }
-
-        .nav-item:hover {
-            color: var(--primary-red);
-            background: rgba(255, 0, 0, 0.1);
-        }
-
-        .nav-item.active {
-            color: var(--primary-red);
-            background: rgba(255, 0, 0, 0.15);
-            box-shadow: var(--glow-red);
-        }
-
-        .nav-icon {
-            font-size: 24px;
-            transition: var(--transition-smooth);
-        }
-
-        .nav-item.active .nav-icon {
-            transform: scale(1.15);
-            filter: drop-shadow(0 0 8px var(--primary-red));
-        }
-
-        .nav-label {
-            font-size: 11px;
-            font-weight: 600;
-        }
-
-        /* ═══════════════════════════════════════════════════════════════
-           REUSABLE CARD COMPONENTS
-        ═══════════════════════════════════════════════════════════════ */
-        .red-card {
-            background: linear-gradient(145deg, #1a1a1a 0%, #0f0f0f 100%);
-            border: 1px solid var(--border-red);
-            border-radius: 16px;
-            padding: 24px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 0, 0, 0.1);
-            transition: var(--transition-smooth);
-        }
-
-        .red-card:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 12px 40px rgba(255, 0, 0, 0.3), inset 0 1px 0 rgba(255, 0, 0, 0.2);
-            border-color: var(--primary-red);
-        }
-
-        .card-header {
-            font-size: 22px;
-            font-weight: 700;
-            margin-bottom: 16px;
-            color: var(--primary-red);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .card-icon {
-            font-size: 28px;
-            filter: drop-shadow(0 0 10px var(--primary-red));
-        }
-
-        /* ═══════════════════════════════════════════════════════════════
-           FORM ELEMENTS (RED FORTRESS STYLE)
-        ═══════════════════════════════════════════════════════════════ */
-        .input-group {
-            margin-bottom: 20px;
-        }
-
-        .input-label {
-            display: block;
-            margin-bottom: 8px;
-            color: #ccc;
-            font-size: 14px;
-            font-weight: 600;
-        }
-
-        .red-input, .red-textarea, .red-select {
-            width: 100%;
-            padding: 14px 16px;
-            background: rgba(20, 20, 20, 0.8);
-            border: 2px solid var(--border-red);
-            border-radius: 10px;
-            color: #fff;
-            font-size: 15px;
-            font-family: inherit;
-            transition: var(--transition-smooth);
-            outline: none;
-        }
-
-        .red-input:focus, .red-textarea:focus, .red-select:focus {
-            border-color: var(--primary-red);
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
-            background: rgba(30, 30, 30, 0.9);
-        }
-
-        .red-textarea {
-            resize: vertical;
-            min-height: 100px;
-        }
-
-        .red-button {
-            background: linear-gradient(135deg, var(--primary-red) 0%, var(--dark-red) 100%);
-            color: white;
-            border: none;
-            padding: 14px 28px;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: 700;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .red-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 25px rgba(255, 0, 0, 0.5);
-            background: linear-gradient(135deg, var(--neon-red) 0%, var(--primary-red) 100%);
-        }
-
-        .red-button:active {
-            transform: translateY(0);
-        }
-
-        .red-button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .button-secondary {
-            background: transparent;
-            border: 2px solid var(--primary-red);
-            color: var(--primary-red);
-        }
-
-        .button-secondary:hover {
-            background: rgba(255, 0, 0, 0.1);
-        }
-
-        /* ═══════════════════════════════════════════════════════════════
-           PAGE 1: ETERNAL MAIL (PERMANENT INBOX)
-        ═══════════════════════════════════════════════════════════════ */
-        #eternal-inbox-container {
-            display: none;
-            margin-top: 20px;
-        }
-
-        .inbox-email-display {
-            background: rgba(255, 0, 0, 0.05);
-            border: 2px dashed var(--primary-red);
-            padding: 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-
-        .inbox-email-text {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary-red);
-            word-break: break-all;
-            margin-bottom: 10px;
-            font-family: 'Courier New', monospace;
-        }
-
-        .secret-key-display {
-            font-size: 14px;
-            color: #999;
-            margin-top: 10px;
-        }
-
-        .secret-key-value {
-            color: var(--neon-red);
-            font-weight: 700;
-            user-select: all;
-        }
-
-        .inbox-actions {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-            justify-content: center;
-            margin-bottom: 20px;
-        }
-
-        .email-list {
-            max-height: 500px;
-            overflow-y: auto;
-        }
-
-        .email-item {
-            background: rgba(30, 30, 30, 0.6);
-            border-right: 4px solid var(--border-red);
-            padding: 16px;
-            margin-bottom: 12px;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: var(--transition-smooth);
-        }
-
-        .email-item:hover {
-            background: rgba(40, 40, 40, 0.8);
-            border-right-color: var(--primary-red);
-            transform: translateX(-4px);
-        }
-
-        .email-item.unread {
-            border-right-color: var(--primary-red);
-            box-shadow: 0 0 15px rgba(255, 0, 0, 0.2);
-        }
-
-        .email-sender {
-            font-weight: 700;
-            color: var(--primary-red);
-            margin-bottom: 6px;
-        }
-
-        .email-subject {
-            font-size: 16px;
-            margin-bottom: 6px;
-            color: #fff;
-        }
-
-        .email-preview {
-            font-size: 13px;
-            color: #888;
-            margin-bottom: 6px;
-        }
-
-        .email-time {
-            font-size: 12px;
-            color: #666;
-        }
-
-        .email-modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 2000;
-            padding: 20px;
-            overflow-y: auto;
-        }
-
-        .email-modal-content {
-            max-width: 800px;
-            margin: 40px auto;
-            background: var(--card-black);
-            border: 2px solid var(--primary-red);
-            border-radius: 16px;
-            padding: 30px;
-            box-shadow: 0 10px 50px rgba(255, 0, 0, 0.3);
-        }
-
-        .email-modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: start;
-            margin-bottom: 20px;
-            padding-bottom: 20px;
-            border-bottom: 1px solid var(--border-red);
-        }
-
-        .email-modal-close {
-            background: transparent;
-            border: none;
-            color: var(--primary-red);
-            font-size: 32px;
-            cursor: pointer;
-            padding: 0;
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 50%;
-            transition: var(--transition-smooth);
-        }
-
-        .email-modal-close:hover {
-            background: rgba(255, 0, 0, 0.1);
-            transform: rotate(90deg);
-        }
-
-        .email-full-content {
-            line-height: 1.8;
-            color: #ddd;
-        }
-
-        /* ═══════════════════════════════════════════════════════════════
-           PAGE 2: IDENTITY VAULT (CARD GENERATOR)
-        ═══════════════════════════════════════════════════════════════ */
-        .vault-layout {
-            display: grid;
-            grid-template-columns: 280px 1fr;
-            gap: 20px;
-        }
-
-        .filter-sidebar {
-            background: rgba(20, 20, 20, 0.8);
-            border: 1px solid var(--border-red);
-            border-radius: 16px;
-            padding: 20px;
-            height: fit-content;
-            position: sticky;
-            top: 20px;
-        }
-
-        .filter-section {
-            margin-bottom: 24px;
-        }
-
-        .filter-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: var(--primary-red);
-            margin-bottom: 12px;
-            text-transform: uppercase;
-        }
-
-        .filter-option {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            padding: 8px;
-            cursor: pointer;
-            border-radius: 6px;
-            transition: var(--transition-smooth);
-            margin-bottom: 6px;
-        }
-
-        .filter-option:hover {
-            background: rgba(255, 0, 0, 0.1);
-        }
-
-        .filter-checkbox {
-            width: 18px;
-            height: 18px;
-            accent-color: var(--primary-red);
-            cursor: pointer;
-        }
-
-        .filter-label {
-            font-size: 14px;
-            color: #ccc;
-            cursor: pointer;
-        }
-
-        .card-display-area {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
-            gap: 20px;
-        }
-
-        .virtual-card {
-            background: linear-gradient(135deg, #1a1a1a 0%, #0d0d0d 100%);
-            border: 2px solid var(--border-red);
-            border-radius: 20px;
-            padding: 24px;
-            aspect-ratio: 1.586;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.6);
-            transition: var(--transition-smooth);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .virtual-card::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 0, 0, 0.1) 0%, transparent 70%);
-            animation: card-glow 4s ease-in-out infinite;
-        }
-
-        @keyframes card-glow {
-            0%, 100% { transform: translate(0, 0); }
-            50% { transform: translate(10%, 10%); }
-        }
-
-        .virtual-card:hover {
-            transform: translateY(-8px) rotateX(5deg);
-            box-shadow: 0 15px 50px rgba(255, 0, 0, 0.4);
-            border-color: var(--primary-red);
-        }
-
-        .card-brand {
-            font-size: 20px;
-            font-weight: 800;
-            color: var(--primary-red);
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            z-index: 2;
-        }
-
-        .card-chip {
-            width: 50px;
-            height: 40px;
-            background: linear-gradient(135deg, #FFD700 0%, #FFA500 100%);
-            border-radius: 8px;
-            margin: 16px 0;
-            box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3);
-            z-index: 2;
-        }
-
-        .card-number {
-            font-size: 22px;
-            font-family: 'Courier New', monospace;
-            letter-spacing: 3px;
-            color: #fff;
-            margin: 16px 0;
-            z-index: 2;
-        }
-
-        .card-details {
-            display: flex;
-            justify-content: space-between;
-            z-index: 2;
-        }
-
-        .card-detail-item {
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
-
-        .card-detail-label {
-            font-size: 10px;
-            color: #888;
-            text-transform: uppercase;
-        }
-
-        .card-detail-value {
-            font-size: 14px;
-            font-weight: 700;
-            color: #fff;
-        }
-
-        /* ═══════════════════════════════════════════════════════════════
-           PAGE 3: WASEL BRAIN (GROQ AI CONSULTANT)
-        ═══════════════════════════════════════════════════════════════ */
-        .brain-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .chat-messages {
-            background: rgba(15, 15, 15, 0.6);
-            border: 1px solid var(--border-red);
-            border-radius: 16px;
-            padding: 20px;
-            height: 500px;
-            overflow-y: auto;
-            margin-bottom: 20px;
             scroll-behavior: smooth;
         }
 
-        .chat-message {
-            margin-bottom: 20px;
-            display: flex;
-            gap: 12px;
-            animation: message-appear 0.3s ease-out;
+        /* Glassmorphism & Red-Glow Cards */
+        .glass-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            padding: 2rem;
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(255, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        @keyframes message-appear {
-            from {
-                opacity: 0;
-                transform: translateY(10px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 40px rgba(255, 0, 0, 0.15), inset 0 0 20px rgba(255, 0, 0, 0.1);
+            border-color: rgba(255, 0, 0, 0.5);
         }
 
-        .message-avatar {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 20px;
-            flex-shrink: 0;
-        }
-
-        .user-avatar {
-            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
-        }
-
-        .ai-avatar {
-            background: linear-gradient(135deg, #333, #555);
-            border: 2px solid var(--primary-red);
-        }
-
-        .message-content {
-            flex: 1;
-            background: rgba(30, 30, 30, 0.8);
-            padding: 14px 18px;
-            border-radius: 12px;
-            border-right: 3px solid transparent;
-        }
-
-        .chat-message.user .message-content {
-            border-right-color: var(--primary-red);
-        }
-
-        .chat-message.ai .message-content {
-            border-right-color: #555;
-        }
-
-        .message-header {
+        /* Layout */
+        header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 8px;
+            padding: 1.5rem 5%;
+            border-bottom: 1px solid var(--glass-border);
+            background: rgba(0, 0, 0, 0.8);
+            position: sticky;
+            top: 0;
+            z-index: 100;
         }
 
-        .message-sender {
-            font-weight: 700;
-            font-size: 14px;
+        .logo {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--neon-red);
+            text-shadow: 0 0 10px var(--neon-red);
+            letter-spacing: 2px;
         }
 
-        .user-sender {
-            color: var(--primary-red);
-        }
-
-        .ai-sender {
-            color: #aaa;
-        }
-
-        .quality-score {
-            background: linear-gradient(135deg, var(--primary-red), var(--neon-red));
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 12px;
-            font-weight: 700;
-        }
-
-        .message-text {
-            color: #ddd;
-            line-height: 1.6;
-            font-size: 15px;
-            white-space: pre-wrap;
-        }
-
-        .chat-input-area {
-            display: flex;
-            gap: 12px;
-        }
-
-        .chat-input {
-            flex: 1;
-        }
-
-        .send-button {
-            padding: 14px 32px;
-        }
-
-        .typing-indicator {
-            display: none;
-            align-items: center;
-            gap: 12px;
-            padding: 12px;
-            background: rgba(30, 30, 30, 0.6);
-            border-radius: 12px;
-            margin-bottom: 20px;
-        }
-
-        .typing-indicator.active {
-            display: flex;
-        }
-
-        .typing-dots {
-            display: flex;
-            gap: 4px;
-        }
-
-        .typing-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 50%;
-            background: var(--primary-red);
-            animation: typing-bounce 1.4s infinite;
-        }
-
-        .typing-dot:nth-child(2) {
-            animation-delay: 0.2s;
-        }
-
-        .typing-dot:nth-child(3) {
-            animation-delay: 0.4s;
-        }
-
-        @keyframes typing-bounce {
-            0%, 60%, 100% { transform: translateY(0); }
-            30% { transform: translateY(-10px); }
-        }
-
-        /* ═══════════════════════════════════════════════════════════════
-           PAGE 4: SHIELD DEFENDER (MINI GAME)
-        ═══════════════════════════════════════════════════════════════ */
-        .game-container {
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .game-stats {
-            display: flex;
-            justify-content: space-around;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .stat-box {
-            background: rgba(20, 20, 20, 0.8);
-            border: 2px solid var(--border-red);
-            border-radius: 12px;
-            padding: 16px 24px;
-            text-align: center;
-            min-width: 150px;
-        }
-
-        .stat-label {
-            font-size: 12px;
-            color: #888;
-            margin-bottom: 6px;
-            text-transform: uppercase;
-        }
-
-        .stat-value {
-            font-size: 28px;
-            font-weight: 800;
-            color: var(--primary-red);
-        }
-
-        #game-canvas {
-            width: 100%;
-            max-width: 800px;
-            height: 500px;
-            background: linear-gradient(180deg, #0a0a0a 0%, #000000 100%);
-            border: 3px solid var(--primary-red);
-            border-radius: 16px;
-            display: block;
-            margin: 0 auto;
-            box-shadow: 0 0 40px rgba(255, 0, 0, 0.3);
-            cursor: crosshair;
-        }
-
-        .game-controls {
-            display: flex;
-            justify-content: center;
-            gap: 12px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-
-        .game-over-screen {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            background: rgba(10, 10, 10, 0.98);
-            border: 3px solid var(--primary-red);
-            border-radius: 20px;
-            padding: 40px;
-            text-align: center;
-            z-index: 2000;
-            box-shadow: 0 0 60px rgba(255, 0, 0, 0.5);
-            min-width: 300px;
-        }
-
-        .game-over-screen.active {
-            display: block;
-            animation: game-over-appear 0.5s ease-out;
-        }
-
-        @keyframes game-over-appear {
-            from {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.8);
-            }
-            to {
-                opacity: 1;
-                transform: translate(-50%, -50%) scale(1);
-            }
-        }
-
-        .game-over-title {
-            font-size: 36px;
-            font-weight: 800;
-            color: var(--primary-red);
-            margin-bottom: 20px;
-        }
-
-        .final-score {
-            font-size: 48px;
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 30px;
-        }
-
-        /* ═══════════════════════════════════════════════════════════════
-           PAGE 5: ABOUT & LEGAL (ADSENSE READY)
-        ═══════════════════════════════════════════════════════════════ */
-        .about-container {
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .about-hero {
-            text-align: center;
-            padding: 60px 20px;
-            background: linear-gradient(135deg, rgba(255, 0, 0, 0.1) 0%, transparent 100%);
-            border-radius: 20px;
-            margin-bottom: 40px;
-        }
-
-        .about-title {
-            font-size: 48px;
-            font-weight: 800;
-            background: linear-gradient(135deg, var(--primary-red), var(--neon-red));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            margin-bottom: 20px;
-        }
-
-        .about-subtitle {
-            font-size: 20px;
-            color: #aaa;
-            line-height: 1.8;
-        }
-
-        .content-section {
-            margin-bottom: 40px;
-        }
-
-        .section-title {
-            font-size: 28px;
-            font-weight: 700;
-            color: var(--primary-red);
-            margin-bottom: 20px;
-            padding-bottom: 12px;
-            border-bottom: 2px solid var(--border-red);
-        }
-
-        .section-content {
-            font-size: 16px;
-            color: #ccc;
-            line-height: 1.9;
-            text-align: justify;
-        }
-
-        .section-content p {
-            margin-bottom: 16px;
-        }
-
-        .section-content ul, .section-content ol {
-            margin-right: 24px;
-            margin-bottom: 16px;
-        }
-
-        .section-content li {
-            margin-bottom: 10px;
-            padding-right: 8px;
-        }
-
-        .highlight-box {
-            background: rgba(255, 0, 0, 0.05);
-            border-right: 4px solid var(--primary-red);
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-        }
-
-        .contact-info {
+        .container {
+            padding: 3rem 5%;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
+            grid-template-columns: 1fr 2fr;
+            gap: 2rem;
         }
 
-        .contact-card {
-            background: rgba(20, 20, 20, 0.6);
-            border: 1px solid var(--border-red);
-            border-radius: 12px;
-            padding: 20px;
-            text-align: center;
-            transition: var(--transition-smooth);
-        }
-
-        .contact-card:hover {
-            transform: translateY(-4px);
-            border-color: var(--primary-red);
-            box-shadow: 0 8px 30px rgba(255, 0, 0, 0.2);
-        }
-
-        .contact-icon {
-            font-size: 40px;
-            color: var(--primary-red);
-            margin-bottom: 12px;
-        }
-
-        .contact-label {
-            font-size: 14px;
-            color: #888;
-            margin-bottom: 8px;
-        }
-
-        .contact-value {
-            font-size: 16px;
-            color: #fff;
-            font-weight: 600;
-        }
-
-        /* ═══════════════════════════════════════════════════════════════
-           THREAT RADAR MAP
-        ═══════════════════════════════════════════════════════════════ */
+        /* Threat Radar Animation */
         .radar-container {
             position: relative;
-            width: 200px;
-            height: 200px;
-            margin: 40px auto;
-        }
-
-        .radar-circle {
-            width: 100%;
-            height: 100%;
-            border: 2px solid var(--border-red);
+            width: 300px;
+            height: 300px;
             border-radius: 50%;
-            position: relative;
-            background: radial-gradient(circle, rgba(255, 0, 0, 0.05) 0%, transparent 70%);
+            background: repeating-radial-gradient(
+                transparent,
+                transparent 48px,
+                rgba(255, 0, 0, 0.2) 50px
+            ), var(--space-blue);
+            border: 2px solid var(--neon-red);
+            overflow: hidden;
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+            margin: 0 auto;
         }
 
         .radar-sweep {
             position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 2px;
-            height: 50%;
-            background: linear-gradient(to bottom, var(--primary-red), transparent);
-            transform-origin: top center;
-            animation: radar-spin 3s linear infinite;
-        }
-
-        @keyframes radar-spin {
-            from { transform: translate(-50%, -100%) rotate(0deg); }
-            to { transform: translate(-50%, -100%) rotate(360deg); }
-        }
-
-        .radar-dot {
-            position: absolute;
-            width: 8px;
-            height: 8px;
-            background: var(--primary-red);
-            border-radius: 50%;
-            box-shadow: 0 0 10px var(--primary-red);
-            animation: radar-pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes radar-pulse {
-            0%, 100% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.5); opacity: 0.5; }
-        }
-
-        /* ═══════════════════════════════════════════════════════════════
-           LOADING SCREEN
-        ═══════════════════════════════════════════════════════════════ */
-        #loading-screen {
-            position: fixed;
             top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: var(--pure-black);
-            z-index: 9999;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            transition: opacity 0.5s ease-out;
-        }
-
-        #loading-screen.hidden {
-            opacity: 0;
-            pointer-events: none;
-        }
-
-        .loading-logo {
-            width: 120px;
-            height: 140px;
-            margin-bottom: 40px;
-            animation: loading-pulse 1.5s ease-in-out infinite;
-        }
-
-        @keyframes loading-pulse {
-            0%, 100% { transform: scale(1); filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.6)); }
-            50% { transform: scale(1.1); filter: drop-shadow(0 0 40px rgba(255, 0, 0, 1)); }
-        }
-
-        .loading-text {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--primary-red);
-            margin-bottom: 20px;
-        }
-
-        .loading-bar {
-            width: 300px;
-            height: 4px;
-            background: rgba(255, 0, 0, 0.2);
-            border-radius: 2px;
-            overflow: hidden;
-        }
-
-        .loading-progress {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary-red), var(--neon-red));
-            width: 0%;
-            animation: loading-progress 2s ease-in-out forwards;
-            box-shadow: 0 0 20px var(--primary-red);
-        }
-
-        @keyframes loading-progress {
-            to { width: 100%; }
-        }
-
-        /* ═══════════════════════════════════════════════════════════════
-           NOTIFICATIONS & ALERTS
-        ═══════════════════════════════════════════════════════════════ */
-        .notification {
-            position: fixed;
-            top: 100px;
             left: 50%;
-            transform: translateX(-50%) translateY(-150px);
-            background: linear-gradient(135deg, #1a1a1a, #0f0f0f);
-            border: 2px solid var(--primary-red);
-            border-radius: 12px;
-            padding: 16px 24px;
-            box-shadow: 0 10px 40px rgba(255, 0, 0, 0.4);
-            z-index: 3000;
+            width: 50%;
+            height: 50%;
+            background: linear-gradient(90deg, transparent, rgba(255, 0, 0, 0.5));
+            transform-origin: bottom left;
+            animation: sweep 4s linear infinite;
+        }
+
+        @keyframes sweep {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .blip {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            background: var(--cyber-orange);
+            border-radius: 50%;
+            box-shadow: 0 0 10px var(--cyber-orange);
+            opacity: 0;
+            animation: blink 4s infinite;
+        }
+
+        /* Grid specific to components */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+        }
+
+        h2 {
+            color: var(--text-main);
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
             display: flex;
             align-items: center;
-            gap: 12px;
-            min-width: 300px;
-            max-width: 500px;
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            gap: 10px;
         }
 
-        .notification.show {
-            transform: translateX(-50%) translateY(0);
-        }
-
-        .notification-icon {
-            font-size: 24px;
-            color: var(--primary-red);
-        }
-
-        .notification-text {
-            flex: 1;
-            color: #fff;
-            font-size: 15px;
-        }
-
-        /* ═══════════════════════════════════════════════════════════════
-           RESPONSIVE DESIGN
-        ═══════════════════════════════════════════════════════════════ */
-        @media (max-width: 768px) {
-            .vault-layout {
-                grid-template-columns: 1fr;
-            }
-
-            .filter-sidebar {
-                position: static;
-            }
-
-            .card-display-area {
-                grid-template-columns: 1fr;
-            }
-
-            .about-title {
-                font-size: 32px;
-            }
-
-            .section-title {
-                font-size: 22px;
-            }
-
-            .wasel-brand-text {
-                font-size: 20px;
-            }
-
-            .wasel-shield {
-                width: 40px;
-                height: 48px;
-            }
-
-            .page-view {
-                padding: 12px;
-                margin-top: 70px;
-            }
-
-            .red-card {
-                padding: 16px;
-            }
-
-            #game-canvas {
-                height: 400px;
-            }
-
-            .chat-messages {
-                height: 400px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .nav-label {
-                font-size: 10px;
-            }
-
-            .nav-icon {
-                font-size: 20px;
-            }
-
-            .inbox-email-text {
-                font-size: 16px;
-            }
-
-            .card-number {
-                font-size: 18px;
-            }
-
-            .about-hero {
-                padding: 40px 16px;
-            }
-        }
-
-        /* ═══════════════════════════════════════════════════════════════
-           SCROLLBAR STYLING
-        ═══════════════════════════════════════════════════════════════ */
-        ::-webkit-scrollbar {
+        h2::before {
+            content: '';
+            display: inline-block;
             width: 10px;
             height: 10px;
+            background: var(--neon-red);
+            border-radius: 50%;
+            box-shadow: 0 0 8px var(--neon-red);
         }
 
-        ::-webkit-scrollbar-track {
-            background: #0a0a0a;
+        /* Stats Counter */
+        .stat-value {
+            font-size: 3rem;
+            font-weight: bold;
+            background: -webkit-linear-gradient(var(--neon-red), var(--cyber-orange));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
-        ::-webkit-scrollbar-thumb {
-            background: linear-gradient(180deg, var(--primary-red), var(--dark-red));
-            border-radius: 5px;
-        }
-
-        ::-webkit-scrollbar-thumb:hover {
-            background: linear-gradient(180deg, var(--neon-red), var(--primary-red));
-        }
-
-        /* ═══════════════════════════════════════════════════════════════
-           UTILITY CLASSES
-        ═══════════════════════════════════════════════════════════════ */
-        .text-center { text-align: center; }
-        .mb-20 { margin-bottom: 20px; }
-        .mt-20 { margin-top: 20px; }
-        .flex-center { display: flex; justify-content: center; align-items: center; }
-        .gap-10 { gap: 10px; }
-        .hidden { display: none !important; }
-
-        /* ═══════════════════════════════════════════════════════════════
-           ANIMATIONS
-        ═══════════════════════════════════════════════════════════════ */
-        @keyframes glow-pulse {
-            0%, 100% { box-shadow: 0 0 20px rgba(255, 0, 0, 0.3); }
-            50% { box-shadow: 0 0 40px rgba(255, 0, 0, 0.6); }
-        }
-
-        .glow-effect {
-            animation: glow-pulse 2s ease-in-out infinite;
-        }
-
-        /* Recovery Modal */
-        .recovery-modal {
-            display: none;
+        /* Live Notification Popup */
+        .notification-tray {
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 2000;
-            padding: 20px;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .recovery-modal.active {
+            bottom: 20px;
+            right: 20px;
             display: flex;
+            flex-direction: column;
+            gap: 10px;
+            z-index: 999;
         }
 
-        .recovery-content {
-            background: var(--card-black);
-            border: 2px solid var(--primary-red);
-            border-radius: 16px;
-            padding: 30px;
-            max-width: 500px;
-            width: 100%;
-            box-shadow: 0 10px 50px rgba(255, 0, 0, 0.4);
+        .toast {
+            background: var(--glass-bg);
+            border-right: 4px solid var(--neon-red);
+            backdrop-filter: blur(10px);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            transform: translateX(120%);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            width: 300px;
         }
 
-        .close-modal {
-            float: left;
-            font-size: 28px;
-            color: var(--primary-red);
-            cursor: pointer;
-            background: none;
-            border: none;
-            padding: 0;
-            margin-bottom: 20px;
+        .toast.show {
+            transform: translateX(0);
         }
-
-        .close-modal:hover {
-            color: var(--neon-red);
-        }
-
     </style>
 </head>
 <body>
 
-    <!-- ═══════════════════════════════════════════════════════════════
-         LOADING SCREEN
-    ═══════════════════════════════════════════════════════════════ -->
-    <div id="loading-screen">
-        <svg class="loading-logo" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M50 10 L80 30 L80 90 L50 110 L20 90 L20 30 Z" stroke="#FF0000" stroke-width="3" fill="rgba(255,0,0,0.1)"/>
-            <path d="M50 35 L65 45 L65 75 L50 85 L35 75 L35 45 Z" fill="#FF0000"/>
-            <circle cx="50" cy="60" r="8" fill="#000000"/>
-        </svg>
-        <div class="loading-text">واصل | WASEL</div>
-        <div class="loading-bar">
-            <div class="loading-progress"></div>
-        </div>
-    </div>
-
-    <!-- ═══════════════════════════════════════════════════════════════
-         PARTICLE CANVAS BACKGROUND
-    ═══════════════════════════════════════════════════════════════ -->
-    <canvas id="particle-canvas"></canvas>
-
-    <!-- ═══════════════════════════════════════════════════════════════
-         MAIN APP CONTAINER
-    ═══════════════════════════════════════════════════════════════ -->
-    <div id="app-container">
-
-        <!-- WASEL LOGO HEADER -->
-        <div class="wasel-logo-container">
-            <svg class="wasel-shield" viewBox="0 0 100 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path d="M50 10 L80 30 L80 90 L50 110 L20 90 L20 30 Z" stroke="#FF0000" stroke-width="3" fill="rgba(255,0,0,0.2)" class="shield-svg"/>
-                <path d="M50 35 L65 45 L65 75 L50 85 L35 75 L35 45 Z" fill="#FF0000"/>
-                <circle cx="50" cy="60" r="8" fill="#000000"/>
-            </svg>
-            <div class="wasel-brand-text">واصل</div>
-        </div>
-
-        <!-- ═══════════════════════════════════════════════════════════════
-             PAGE 1: ETERNAL MAIL
-        ═══════════════════════════════════════════════════════════════ -->
-        <div id="page-eternal-mail" class="page-view active">
-            <div class="red-card">
-                <div class="card-header">
-                    <span class="card-icon">📧</span>
-                    البريد الأبدي - Eternal Mail
-                </div>
-                
-                <div id="create-inbox-section">
-                    <p style="color: #aaa; margin-bottom: 20px; line-height: 1.8;">
-                        أنشئ صندوق بريد إلكتروني دائم ومشفر بكلمة مرور سرية. احتفظ بالمفتاح السري لاستعادة الوصول في أي وقت.
-                    </p>
-                    <div class="input-group">
-                        <label class="input-label">اسم صندوق البريد (اختياري)</label>
-                        <input type="text" id="inbox-username" class="red-input" placeholder="مثال: myprotectedmail">
-                    </div>
-                    <div class="input-group">
-                        <label class="input-label">كلمة المرور</label>
-                        <input type="password" id="inbox-password" class="red-input" placeholder="كلمة مرور قوية" required>
-                    </div>
-                    <button class="red-button" onclick="createEternalInbox()">
-                        🔐 إنشاء صندوق بريد أبدي
-                    </button>
-                    <button class="red-button button-secondary" onclick="showRecoveryModal()" style="margin-right: 10px; margin-top: 10px;">
-                        🔑 استعادة صندوق موجود
-                    </button>
-                </div>
-
-                <div id="eternal-inbox-container">
-                    <div class="inbox-email-display">
-                        <div class="inbox-email-text" id="inbox-email-address"></div>
-                        <div class="secret-key-display">
-                            🔑 المفتاح السري: <span class="secret-key-value" id="secret-key-display"></span>
-                            <br><small style="color: #666;">(احتفظ بهذا المفتاح للاستعادة)</small>
-                        </div>
-                    </div>
-
-                    <div class="inbox-actions">
-                        <button class="red-button" onclick="copyInboxEmail()">📋 نسخ البريد</button>
-                        <button class="red-button" onclick="refreshInbox()">🔄 تحديث</button>
-                        <button class="red-button button-secondary" onclick="deleteInbox()">🗑️ حذف الصندوق</button>
-                    </div>
-
-                    <div class="red-card">
-                        <div class="card-header">
-                            <span class="card-icon">📬</span>
-                            الرسائل الواردة
-                        </div>
-                        <div class="email-list" id="email-list">
-                            <p style="text-align: center; color: #666; padding: 40px;">لا توجد رسائل بعد</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Live Threat Radar -->
-            <div class="red-card text-center">
-                <div class="card-header" style="justify-content: center;">
-                    <span class="card-icon">📡</span>
-                    رادار التهديدات الحية
-                </div>
-                <div class="radar-container">
-                    <div class="radar-circle">
-                        <div class="radar-sweep"></div>
-                        <div class="radar-dot" style="top: 30%; right: 40%;"></div>
-                        <div class="radar-dot" style="top: 60%; right: 70%;"></div>
-                        <div class="radar-dot" style="top: 45%; right: 25%;"></div>
-                    </div>
-                </div>
-                <p style="color: #888; font-size: 14px;">مراقبة نشطة للتهديدات الأمنية</p>
-            </div>
-        </div>
-
-        <!-- ═══════════════════════════════════════════════════════════════
-             PAGE 2: IDENTITY VAULT
-        ═══════════════════════════════════════════════════════════════ -->
-        <div id="page-identity-vault" class="page-view">
-            <div class="red-card">
-                <div class="card-header">
-                    <span class="card-icon">💳</span>
-                    خزنة الهويات - Identity Vault
-                </div>
-                <p style="color: #aaa; margin-bottom: 20px;">
-                    ولّد بطاقات افتراضية فورية لحماية معلوماتك المالية عند التسوق الإلكتروني.
-                </p>
-                <button class="red-button" onclick="generateVirtualCard()">
-                    ⚡ توليد بطاقة جديدة
-                </button>
-            </div>
-
-            <div class="vault-layout">
-                <div class="filter-sidebar">
-                    <div class="filter-section">
-                        <div class="filter-title">🏢 العلامة التجارية</div>
-                        <div class="filter-option">
-                            <input type="checkbox" class="filter-checkbox" id="filter-visa" checked onchange="applyFilters()">
-                            <label class="filter-label" for="filter-visa">Visa</label>
-                        </div>
-                        <div class="filter-option">
-                            <input type="checkbox" class="filter-checkbox" id="filter-mastercard" checked onchange="applyFilters()">
-                            <label class="filter-label" for="filter-mastercard">Mastercard</label>
-                        </div>
-                        <div class="filter-option">
-                            <input type="checkbox" class="filter-checkbox" id="filter-amex" checked onchange="applyFilters()">
-                            <label class="filter-label" for="filter-amex">American Express</label>
-                        </div>
-                    </div>
-
-                    <div class="filter-section">
-                        <div class="filter-title">🌍 المنطقة</div>
-                        <div class="filter-option">
-                            <input type="checkbox" class="filter-checkbox" id="filter-us" checked onchange="applyFilters()">
-                            <label class="filter-label" for="filter-us">الولايات المتحدة</label>
-                        </div>
-                        <div class="filter-option">
-                            <input type="checkbox" class="filter-checkbox" id="filter-eu" checked onchange="applyFilters()">
-                            <label class="filter-label" for="filter-eu">أوروبا</label>
-                        </div>
-                        <div class="filter-option">
-                            <input type="checkbox" class="filter-checkbox" id="filter-asia" checked onchange="applyFilters()">
-                            <label class="filter-label" for="filter-asia">آسيا</label>
-                        </div>
-                    </div>
-
-                    <div class="filter-section">
-                        <div class="filter-title">🎯 النوع</div>
-                        <div class="filter-option">
-                            <input type="checkbox" class="filter-checkbox" id="filter-credit" checked onchange="applyFilters()">
-                            <label class="filter-label" for="filter-credit">بطاقة ائتمان</label>
-                        </div>
-                        <div class="filter-option">
-                            <input type="checkbox" class="filter-checkbox" id="filter-debit" checked onchange="applyFilters()">
-                            <label class="filter-label" for="filter-debit">بطاقة خصم</label>
-                        </div>
-                    </div>
-
-                    <button class="red-button button-secondary" style="width: 100%; margin-top: 20px;" onclick="clearFilters()">
-                        مسح الفلاتر
-                    </button>
-                </div>
-
-                <div class="card-display-area" id="card-display-area">
-                    <p style="text-align: center; color: #666; padding: 60px; grid-column: 1/-1;">
-                        انقر على "توليد بطاقة جديدة" لإنشاء بطاقتك الأولى
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <!-- ═══════════════════════════════════════════════════════════════
-             PAGE 3: WASEL BRAIN (GROQ AI)
-        ═══════════════════════════════════════════════════════════════ -->
-        <div id="page-wasel-brain" class="page-view">
-            <div class="brain-container">
-                <div class="red-card">
-                    <div class="card-header">
-                        <span class="card-icon">🧠</span>
-                        عقل واصل - AI Security Consultant
-                    </div>
-                    <p style="color: #aaa; margin-bottom: 20px; line-height: 1.8;">
-                        مستشارك الأمني الذكي المدعوم بتقنية Groq. اطرح أسئلتك حول الأمان الرقمي، حماية البيانات، والخصوصية.
-                    </p>
-                </div>
-
-                <div class="chat-messages" id="chat-messages">
-                    <div class="chat-message ai">
-                        <div class="message-avatar ai-avatar">🧠</div>
-                        <div class="message-content">
-                            <div class="message-header">
-                                <span class="message-sender ai-sender">عقل واصل</span>
-                            </div>
-                            <div class="message-text">مرحباً! أنا مستشارك الأمني الذكي. كيف يمكنني مساعدتك اليوم في حماية بياناتك وخصوصيتك الرقمية؟</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="typing-indicator" id="typing-indicator">
-                    <div class="typing-dots">
-                        <div class="typing-dot"></div>
-                        <div class="typing-dot"></div>
-                        <div class="typing-dot"></div>
-                    </div>
-                    <span style="color: #888;">عقل واصل يفكر...</span>
-                </div>
-
-                <div class="chat-input-area">
-                    <input type="text" id="chat-input" class="red-input chat-input" placeholder="اكتب سؤالك هنا..." onkeypress="handleChatEnter(event)">
-                    <button class="red-button send-button" onclick="sendChatMessage()">
-                        📤 إرسال
-                    </button>
-                </div>
-            </div>
-        </div>
-
-        <!-- ═══════════════════════════════════════════════════════════════
-             PAGE 4: SHIELD DEFENDER GAME
-        ═══════════════════════════════════════════════════════════════ -->
-        <div id="page-shield-game" class="page-view">
-            <div class="red-card">
-                <div class="card-header">
-                    <span class="card-icon">🛡️</span>
-                    المدافع الدرعي - Shield Defender
-                </div>
-                <p style="color: #aaa; margin-bottom: 20px;">
-                    دافع عن حصنك الرقمي! انقر على الشرارات الحمراء لتدميرها قبل أن تصطدم بالدرع.
-                </p>
-            </div>
-
-            <div class="game-stats">
-                <div class="stat-box">
-                    <div class="stat-label">النقاط</div>
-                    <div class="stat-value" id="game-score">0</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-label">الطاقة</div>
-                    <div class="stat-value" id="game-health">100</div>
-                </div>
-                <div class="stat-box">
-                    <div class="stat-label">المستوى</div>
-                    <div class="stat-value" id="game-level">1</div>
-                </div>
-            </div>
-
-            <canvas id="game-canvas"></canvas>
-
-            <div class="game-controls">
-                <button class="red-button" id="game-start-btn" onclick="startGame()">
-                    ▶️ بدء اللعبة
-                </button>
-                <button class="red-button button-secondary" id="game-pause-btn" onclick="pauseGame()" disabled>
-                    ⏸️ إيقاف مؤقت
-                </button>
-                <button class="red-button button-secondary" onclick="resetGame()">
-                    🔄 إعادة تشغيل
-                </button>
-            </div>
-
-            <div class="game-over-screen" id="game-over-screen">
-                <div class="game-over-title">انتهت اللعبة!</div>
-                <div class="final-score" id="final-score">0</div>
-                <p style="color: #aaa; margin-bottom: 30px;">نقاطك النهائية</p>
-                <button class="red-button" onclick="resetGame()">
-                    🔄 العب مجدداً
-                </button>
-            </div>
-        </div>
-
-        <!-- ═══════════════════════════════════════════════════════════════
-             PAGE 5: ABOUT & LEGAL
-        ═══════════════════════════════════════════════════════════════ -->
-        <div id="page-about" class="page-view">
-            <div class="about-container">
-                <div class="about-hero">
-                    <div class="about-title">واصل - WASEL</div>
-                    <div class="about-subtitle">
-                        منصة الأمان الرقمي المتكاملة التي تحمي خصوصيتك وبياناتك في العالم الرقمي
-                    </div>
-                </div>
-
-                <div class="red-card content-section">
-                    <h2 class="section-title">📖 من نحن</h2>
-                    <div class="section-content">
-                        <p>
-                            واصل هي منصة رائدة في مجال الأمان الرقمي، تأسست عام 2024 بهدف توفير حلول شاملة لحماية الخصوصية والبيانات للمستخدمين العرب. نؤمن بأن الأمان الرقمي حق أساسي لكل مستخدم للإنترنت.
-                        </p>
-                        <p>
-                            تجمع منصتنا بين أحدث تقنيات الذكاء الاصطناعي والتشفير المتقدم لتوفير مجموعة متكاملة من الأدوات التي تساعدك على البقاء آمناً في الفضاء الرقمي. من البريد الإلكتروني المؤقت إلى البطاقات الافتراضية والمستشار الأمني الذكي، واصل هو حصنك الأحمر في عالم التهديدات الرقمية.
-                        </p>
-                        <div class="highlight-box">
-                            <strong style="color: var(--primary-red);">رؤيتنا:</strong> أن نكون المنصة الأولى عربياً في توفير حلول الأمان الرقمي المبتكرة والسهلة الاستخدام.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="red-card content-section">
-                    <h2 class="section-title">🎯 خدماتنا</h2>
-                    <div class="section-content">
-                        <ul>
-                            <li><strong>البريد الأبدي:</strong> نظام بريد إلكتروني مؤقت دائم مع تشفير متقدم وإمكانية الاستعادة.</li>
-                            <li><strong>خزنة الهويات:</strong> توليد فوري لبطاقات افتراضية لحماية معلوماتك المالية.</li>
-                            <li><strong>عقل واصل:</strong> مستشار أمني ذكي مدعوم بتقنية Groq AI لتقديم نصائح أمنية مخصصة.</li>
-                            <li><strong>المدافع الدرعي:</strong> لعبة تفاعلية تعليمية حول الأمان الرقمي.</li>
-                            <li><strong>رادار التهديدات:</strong> مراقبة حية للتهديدات الأمنية في الوقت الفعلي.</li>
-                        </ul>
-                    </div>
-                </div>
-
-                <div class="red-card content-section">
-                    <h2 class="section-title">🔒 سياسة الخصوصية</h2>
-                    <div class="section-content">
-                        <p><strong>آخر تحديث: يناير 2024</strong></p>
-                        
-                        <p>
-                            في واصل، خصوصيتك هي أولويتنا القصوى. نلتزم بحماية بياناتك الشخصية وفقاً لأعلى المعايير العالمية.
-                        </p>
-
-                        <h3 style="color: var(--primary-red); margin: 20px 0 10px;">المعلومات التي نجمعها:</h3>
-                        <ul>
-                            <li>معلومات الحساب الأساسية (اختيارية): اسم المستخدم والبريد الإلكتروني للاستعادة.</li>
-                            <li>بيانات الاستخدام: معلومات حول كيفية استخدامك للمنصة لتحسين خدماتنا.</li>
-                            <li>ملفات تعريف الارتباط: لتحسين تجربتك وتخصيص المحتوى.</li>
-                        </ul>
-
-                        <h3 style="color: var(--primary-red); margin: 20px 0 10px;">كيف نستخدم معلوماتك:</h3>
-                        <ul>
-                            <li>توفير وتحسين خدماتنا الأمنية.</li>
-                            <li>التواصل معك بخصوص تحديثات الخدمة والأمان.</li>
-                            <li>تحليل استخدام المنصة لتطوير ميزات جديدة.</li>
-                            <li>ضمان أمان المنصة ومنع الاحتيال.</li>
-                        </ul>
-
-                        <h3 style="color: var(--primary-red); margin: 20px 0 10px;">حماية البيانات:</h3>
-                        <p>
-                            نستخدم تشفير AES-256 لحماية جميع البيانات المخزنة، ونطبق بروتوكولات أمان متعددة الطبقات. لا نبيع أو نشارك بياناتك الشخصية مع أطراف ثالثة لأغراض تجارية.
-                        </p>
-
-                        <div class="highlight-box">
-                            <strong>حقوقك:</strong> يحق لك الوصول إلى بياناتك، تعديلها، أو حذفها في أي وقت من خلال إعدادات الحساب أو بالتواصل معنا.
-                        </div>
-                    </div>
-                </div>
-
-                <div class="red-card content-section">
-                    <h2 class="section-title">📜 شروط الخدمة</h2>
-                    <div class="section-content">
-                        <p><strong>آخر تحديث: يناير 2024</strong></p>
-
-                        <h3 style="color: var(--primary-red); margin: 20px 0 10px;">قبول الشروط:</h3>
-                        <p>
-                            باستخدامك لمنصة واصل، أنت توافق على الالتزام بهذه الشروط والأحكام. إذا لم توافق على أي جزء من هذه الشروط، يرجى عدم استخدام خدماتنا.
-                        </p>
-
-                        <h3 style="color: var(--primary-red); margin: 20px 0 10px;">الاستخدام المقبول:</h3>
-                        <ul>
-                            <li>يجب استخدام الخدمات لأغراض قانونية فقط.</li>
-                            <li>يُمنع استخدام المنصة لأي نشاط احتيالي أو ضار.</li>
-                            <li>يجب الحفاظ على سرية معلومات حسابك.</li>
-                            <li>تتحمل المسؤولية الكاملة عن جميع الأنشطة التي تتم من خلال حسابك.</li>
-                        </ul>
-
-                        <h3 style="color: var(--primary-red); margin: 20px 0 10px;">الملكية الفكرية:</h3>
-                        <p>
-                            جميع حقوق الملكية الفكرية للمنصة، بما في ذلك التصميم والشعارات والمحتوى، محفوظة لمنصة واصل. يُمنع نسخ أو توزيع أو تعديل أي جزء من المنصة دون إذن كتابي مسبق.
-                        </p>
-
-                        <h3 style="color: var(--primary-red); margin: 20px 0 10px;">إخلاء المسؤولية:</h3>
-                        <p>
-                            نسعى جاهدين لتوفير خدمات آمنة وموثوقة، لكننا لا نضمن أن الخدمات ستكون خالية من الأخطاء أو الانقطاعات. استخدامك للمنصة هو على مسؤوليتك الخاصة.
-                        </p>
-
-                        <h3 style="color: var(--primary-red); margin: 20px 0 10px;">التعديلات:</h3>
-                        <p>
-                            نحتفظ بالحق في تعديل هذه الشروط في أي وقت. سيتم إشعارك بأي تغييرات جوهرية، واستمرارك في استخدام الخدمات بعد التعديلات يعني قبولك لها.
-                        </p>
-                    </div>
-                </div>
-
-                <div class="red-card content-section">
-                    <h2 class="section-title">📞 تواصل معنا</h2>
-                    <div class="section-content">
-                        <p>
-                            نحن دائماً هنا لمساعدتك. لا تتردد في التواصل معنا لأي استفسارات أو ملاحظات أو دعم فني.
-                        </p>
-                    </div>
-
-                    <div class="contact-info">
-                        <div class="contact-card">
-                            <div class="contact-icon">📧</div>
-                            <div class="contact-label">البريد الإلكتروني</div>
-                            <div class="contact-value">support@wasel.app</div>
-                        </div>
-                        <div class="contact-card">
-                            <div class="contact-icon">🌐</div>
-                            <div class="contact-label">الموقع الإلكتروني</div>
-                            <div class="contact-value">www.wasel.app</div>
-                        </div>
-                        <div class="contact-card">
-                            <div class="contact-icon">⏰</div>
-                            <div class="contact-label">ساعات العمل</div>
-                            <div class="contact-value">24/7 دعم مستمر</div>
-                        </div>
-                    </div>
-
-                    <div class="highlight-box" style="margin-top: 30px;">
-                        <p style="margin: 0;">
-                            <strong style="color: var(--primary-red);">ملاحظة مهمة:</strong> 
-                            جميع المعلومات المقدمة في هذه الصفحة معدة وفق متطلبات Google AdSense لعام 2024-2026. نلتزم بالشفافية الكاملة وحماية خصوصية مستخدمينا.
-                        </p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- ═══════════════════════════════════════════════════════════════
-             BOTTOM NAVIGATION
-        ═══════════════════════════════════════════════════════════════ -->
-        <nav class="bottom-nav">
-            <div class="nav-item active" onclick="switchPage('eternal-mail')">
-                <div class="nav-icon">📧</div>
-                <div class="nav-label">البريد</div>
-            </div>
-            <div class="nav-item" onclick="switchPage('identity-vault')">
-                <div class="nav-icon">💳</div>
-                <div class="nav-label">البطاقات</div>
-            </div>
-            <div class="nav-item" onclick="switchPage('wasel-brain')">
-                <div class="nav-icon">🧠</div>
-                <div class="nav-label">الذكاء</div>
-            </div>
-            <div class="nav-item" onclick="switchPage('shield-game')">
-                <div class="nav-icon">🛡️</div>
-                <div class="nav-label">اللعبة</div>
-            </div>
-            <div class="nav-item" onclick="switchPage('about')">
-                <div class="nav-icon">ℹ️</div>
-                <div class="nav-label">عن واصل</div>
-            </div>
+    <header>
+        <div class="logo">WASEL <span style="font-size: 1rem; color: var(--text-muted);">واصِل</span></div>
+        <nav style="display: flex; gap: 20px; color: var(--text-muted);">
+            <span>النظام</span>
+            <span>الشبكة</span>
+            <span style="color: var(--neon-red);">مباشر</span>
         </nav>
+    </header>
 
-    </div>
+    <div class="container">
+        <!-- Sidebar / Threat Radar -->
+        <aside class="glass-card">
+            <h2 style="text-align: center;">رادار التهديدات الحي</h2>
+            <div class="radar-container" style="margin-top: 2rem;">
+                <div class="radar-sweep"></div>
+                <div class="blip" style="top: 30%; left: 60%; animation-delay: 0.5s;"></div>
+                <div class="blip" style="top: 70%; left: 30%; animation-delay: 2.1s;"></div>
+            </div>
+            <div style="margin-top: 2rem; text-align: center;">
+                <p style="color: var(--text-muted);">حالة النظام</p>
+                <p style="color: #00ff00; text-shadow: 0 0 5px #00ff00; font-weight: bold; font-size: 1.2rem;">آمن - مُشفّر</p>
+            </div>
+        </aside>
 
-    <!-- ═══════════════════════════════════════════════════════════════
-         EMAIL DETAIL MODAL
-    ═══════════════════════════════════════════════════════════════ -->
-    <div class="email-modal" id="email-modal">
-        <div class="email-modal-content">
-            <div class="email-modal-header">
-                <div>
-                    <h2 id="modal-email-subject" style="color: var(--primary-red); margin-bottom: 10px;"></h2>
-                    <p id="modal-email-sender" style="color: #aaa;"></p>
-                    <p id="modal-email-time" style="color: #666; font-size: 13px;"></p>
+        <!-- Main Dashboard -->
+        <main>
+            <div class="dashboard-grid">
+                <!-- Eternal Mail Card -->
+                <div class="glass-card">
+                    <h2>البريد الأبدي (Eternal Mail)</h2>
+                    <p style="color: var(--text-muted); margin-bottom: 1rem;">بوابة الاتصال المعزولة. مشفرة بالكامل.</p>
+                    <button style="background: transparent; border: 1px solid var(--neon-red); color: var(--neon-red); padding: 10px 20px; border-radius: 5px; cursor: pointer; width: 100%; transition: 0.3s;" onmouseover="this.style.background='var(--neon-red)'; this.style.color='#fff';" onmouseout="this.style.background='transparent'; this.style.color='var(--neon-red)';">
+                        تهيئة الاتصال
+                    </button>
                 </div>
-                <button class="email-modal-close" onclick="closeEmailModal()">×</button>
-            </div>
-            <div class="email-full-content" id="modal-email-content"></div>
-        </div>
-    </div>
 
-    <!-- ═══════════════════════════════════════════════════════════════
-         RECOVERY MODAL
-    ═══════════════════════════════════════════════════════════════ -->
-    <div class="recovery-modal" id="recovery-modal">
-        <div class="recovery-content">
-            <button class="close-modal" onclick="closeRecoveryModal()">×</button>
-            <h2 style="color: var(--primary-red); margin-bottom: 20px;">🔑 استعادة صندوق البريد</h2>
-            <p style="color: #aaa; margin-bottom: 20px;">أدخل المفتاح السري وكلمة المرور لاستعادة الوصول إلى صندوقك.</p>
-            <div class="input-group">
-                <label class="input-label">المفتاح السري</label>
-                <input type="text" id="recovery-secret-key" class="red-input" placeholder="أدخل المفتاح السري">
-            </div>
-            <div class="input-group">
-                <label class="input-label">كلمة المرور</label>
-                <input type="password" id="recovery-password" class="red-input" placeholder="كلمة المرور">
-            </div>
-            <button class="red-button" onclick="recoverInbox()" style="width: 100%;">
-                🔓 استعادة الصندوق
-            </button>
-        </div>
-    </div>
+                <!-- Identity Vault Card -->
+                <div class="glass-card">
+                    <h2>خزنة الهوية (Identity Vault)</h2>
+                    <p style="color: var(--text-muted); margin-bottom: 1rem;">حماية الأصول الرقمية والمصادقة الصفرية.</p>
+                    <button style="background: transparent; border: 1px solid var(--cyber-orange); color: var(--cyber-orange); padding: 10px 20px; border-radius: 5px; cursor: pointer; width: 100%; transition: 0.3s;" onmouseover="this.style.background='var(--cyber-orange)'; this.style.color='#fff';" onmouseout="this.style.background='transparent'; this.style.color='var(--cyber-orange)';">
+                        فتح الخزنة
+                    </button>
+                </div>
 
-    <!-- ═══════════════════════════════════════════════════════════════
-         NOTIFICATION CONTAINER
-    ═══════════════════════════════════════════════════════════════ -->
-    <div class="notification" id="notification">
-        <span class="notification-icon">ℹ️</span>
-        <span class="notification-text" id="notification-text"></span>
-    </div>
+                <!-- AI Brain Interface -->
+                <div class="glass-card" style="grid-column: 1 / -1;">
+                    <h2>WASEL AI Engine (عقل واصِل)</h2>
+                    <div style="background: rgba(0,0,0,0.5); padding: 15px; border-radius: 8px; font-family: monospace; color: #00ff00; min-height: 100px; border: 1px solid #333;" id="terminal-output">
+                        > تهيئة خوادم الذكاء الاصطناعي...<br>
+                        > الاتصال بالخادم الخلفي...<br>
+                        <span class="cursor" style="animation: blink-cursor 1s step-end infinite;">_</span>
+                    </div>
+                </div>
 
-    <!-- ═══════════════════════════════════════════════════════════════
-         JAVASCRIPT - FULL APPLICATION LOGIC
-    ═══════════════════════════════════════════════════════════════ -->
-    <script>
-        // ═══════════════════════════════════════════════════════════════
-        // CONFIGURATION & GLOBALS
-        // ═══════════════════════════════════════════════════════════════
-        const SUPABASE_URL = 'https://zbfjloaqnenwtyhfsibs.supabase.co';
-        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InpiZmpsb2FxbmVud3R5aGZzaWJzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzY4ODAzMjMsImV4cCI6MjA1MjQ1NjMyM30.qUt6IfKHzBdXCv_m0sb_publishable_Ku79dNpuJEFgWcQqoXhnhQ';
-        
-        const GROQ_API_KEY = 'gsk_VxhY9Z2wQ3fN8mLrK5pT6WGdyb3FYH7jX4vC1sA0eR2tU9iO6nB'; // Demo Key - Replace with real key
-        const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
-
-        let currentInbox = null;
-        let emailCheckInterval = null;
-        let virtualCards = [];
-        let gameState = {
-            running: false,
-            paused: false,
-            score: 0,
-            health: 100,
-            level: 1,
-            sparks: [],
-            shield: null
-        };
-
-        // ═══════════════════════════════════════════════════════════════
-        // PARTICLE SYSTEM BACKGROUND
-        // ═══════════════════════════════════════════════════════════════
-        class ParticleSystem {
-            constructor() {
-                this.canvas = document.getElementById('particle-canvas');
-                this.ctx = this.canvas.getContext('2d');
-                this.particles = [];
-                this.resize();
-                this.init();
-                window.addEventListener('resize', () => this.resize());
-            }
-
-            resize() {
-                this.canvas.width = window.innerWidth;
-                this.canvas.height = window.innerHeight;
-            }
-
-            init() {
-                for (let i = 0; i < 80; i++) {
-                    this.particles.push({
-                        x: Math.random() * this.canvas.width,
-                        y: Math.random() * this.canvas.height,
-                        vx: (Math.random() - 0.5) * 0.5,
-                        vy: (Math.random() - 0.5) * 0.5,
-                        radius: Math.random() * 2 + 1,
-                        opacity: Math.random() * 0.5 + 0.2
-                    });
-                }
-                this.animate();
-            }
-
-            animate() {
-                this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+                <!-- Stats -->
+                <div class="glass-card" style="text-align: center;">
+                    <p style="color: var(--text-muted);">المستخدمين النشطين</p>
+                    <div class="stat-value" id="user-counter">0</div>
+                </div>
                 
-                this.particles.forEach((p, i) => {
-                    p.x += p.vx;
-                    p.y += p.vy;
+                <div class="glass-card" style="text-align: center;">
+                    <p style="color: var(--text-muted);">التهديدات المحظورة</p>
+                    <div class="stat-value">1,492</div>
+                </div>
+            </div>
+        </main>
+    </div>
 
-                    if (p.x < 0 || p.x > this.canvas.width) p.vx *= -1;
-                    if (p.y < 0 || p.y > this.canvas.height) p.vy *= -1;
+    <!-- Live Notification System -->
+    <div class="notification-tray" id="notif-tray"></div>
 
-                    this.ctx.beginPath();
-                    this.ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-                    this.ctx.fillStyle = `rgba(255, 0, 0, ${p.opacity})`;
-                    this.ctx.fill();
+    <style>
+        @keyframes blink-cursor { 50% { opacity: 0; } }
+        @keyframes blink {
+            0% { opacity: 0; }
+            5% { opacity: 1; }
+            10% { opacity: 0; }
+            100% { opacity: 0; }
+        }
+    </style>
 
-                    // Draw connections
-                    this.particles.slice(i + 1).forEach(p2 => {
-                        const dx = p.x - p2.x;
-                        const dy = p.y - p2.y;
-                        const distance = Math.sqrt(dx * dx + dy * dy);
-
-                        if (distance < 120) {
-                            this.ctx.beginPath();
-                            this.ctx.moveTo(p.x, p.y);
-                            this.ctx.lineTo(p2.x, p2.y);
-                            this.ctx.strokeStyle = `rgba(255, 0, 0, ${0.2 * (1 - distance / 120)})`;
-                            this.ctx.lineWidth = 0.5;
-                            this.ctx.stroke();
-                        }
-                    });
-                });
-
-                requestAnimationFrame(() => this.animate());
-            }
+    <script>
+        // --- 1. Stats Counter Animation ---
+        function animateValue(obj, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                // Easing function for smooth slowdown
+                const easeOutQuart = 1 - Math.pow(1 - progress, 4);
+                obj.innerHTML = '+' + Math.floor(easeOutQuart * (end - start) + start).toLocaleString();
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
         }
 
-        // ═══════════════════════════════════════════════════════════════
-        // PAGE NAVIGATION SYSTEM
-        // ═══════════════════════════════════════════════════════════════
-        function switchPage(pageName) {
-            const pages = document.querySelectorAll('.page-view');
-            const navItems = document.querySelectorAll('.nav-item');
-            
-            pages.forEach(page => {
-                page.classList.remove('active');
-            });
-            
-            navItems.forEach(item => {
-                item.classList.remove('active');
-            });
-            
-            document.getElementById(`page-${pageName}`).classList.add('active');
-            event.currentTarget.classList.add('active');
-            
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
+        document.addEventListener("DOMContentLoaded", () => {
+            const counter = document.getElementById("user-counter");
+            // Animates to 50,000+ over 2.5 seconds
+            animateValue(counter, 0, 50000, 2500); 
+        });
 
-        // ═══════════════════════════════════════════════════════════════
-        // NOTIFICATION SYSTEM
-        // ═══════════════════════════════════════════════════════════════
-        function showNotification(message, icon = 'ℹ️') {
-            const notification = document.getElementById('notification');
-            const notificationText = document.getElementById('notification-text');
-            const notificationIcon = notification.querySelector('.notification-icon');
+        // --- 2. Live Notification System ---
+        const notifications = [
+            "تم حظر محاولة تسجيل دخول غير مصرح بها.",
+            "تحديث قاعدة بيانات WASEL بنجاح.",
+            "عقل الذكاء الاصطناعي: تم رصد شذوذ في الشبكة.",
+            "خزنة الهوية: مزامنة تامة."
+        ];
+
+        function showNotification() {
+            const tray = document.getElementById("notif-tray");
+            const toast = document.createElement("div");
+            toast.className = "toast";
             
-            notificationIcon.textContent = icon;
-            notificationText.textContent = message;
-            notification.classList.add('show');
+            // Pick random notification
+            const randomMsg = notifications[Math.floor(Math.random() * notifications.length)];
+            toast.innerHTML = `<strong style="color: var(--neon-red);">تنبيه النظام:</strong><br>${randomMsg}`;
             
+            tray.appendChild(toast);
+            
+            // Trigger animation
+            setTimeout(() => toast.classList.add("show"), 100);
+
+            // Remove after 4 seconds
             setTimeout(() => {
-                notification.classList.remove('show');
+                toast.classList.remove("show");
+                setTimeout(() => toast.remove(), 400); // Wait for transition
             }, 4000);
         }
 
-        // ═══════════════════════════════════════════════════════════════
-        // ETERNAL MAIL SYSTEM
-        // ═══════════════════════════════════════════════════════════════
-        function generateSecretKey() {
-            const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-            let key = '';
-            for (let i = 0; i < 32; i++) {
-                key += chars.charAt(Math.floor(Math.random() * chars.length));
-            }
-            return key;
-        }
+        // Fire a notification every 8 seconds
+        setInterval(showNotification, 8000);
+        setTimeout(showNotification, 2000); // Initial notification
 
-        function generateEmailAddress(username) {
-            const domains = ['waselmail.com', 'securemail.wasel', 'tempmail.wasel'];
-            const randomDomain = domains[Math.floor(Math.random() * domains.length)];
-            const finalUsername = username || 'user' + Math.random().toString(36).substr(2, 9);
-            return `${finalUsername}@${randomDomain}`;
-        }
-
-        async function createEternalInbox() {
-            const username = document.getElementById('inbox-username').value;
-            const password = document.getElementById('inbox-password').value;
-
-            if (!password) {
-                showNotification('الرجاء إدخال كلمة مرور', '⚠️');
-                return;
-            }
-
-            const secretKey = generateSecretKey();
-            const emailAddress = generateEmailAddress(username);
-
-            currentInbox = {
-                email: emailAddress,
-                secretKey: secretKey,
-                password: password,
-                createdAt: new Date().toISOString(),
-                emails: []
-            };
-
-            // Store in localStorage (in production, use Supabase)
-            localStorage.setItem('wasel_inbox', JSON.stringify(currentInbox));
-
-            document.getElementById('create-inbox-section').style.display = 'none';
-            document.getElementById('eternal-inbox-container').style.display = 'block';
-            document.getElementById('inbox-email-address').textContent = emailAddress;
-            document.getElementById('secret-key-display').textContent = secretKey;
-
-            showNotification('تم إنشاء صندوق البريد بنجاح!', '✅');
-            startEmailPolling();
-        }
-
-        function copyInboxEmail() {
-            const email = document.getElementById('inbox-email-address').textContent;
-            navigator.clipboard.writeText(email);
-            showNotification('تم نسخ البريد الإلكتروني', '📋');
-        }
-
-        function startEmailPolling() {
-            // Simulate receiving emails every 10 seconds
-            emailCheckInterval = setInterval(() => {
-                if (Math.random() > 0.7) { // 30% chance of new email
-                    receiveEmail();
-                }
-            }, 10000);
-        }
-
-        function receiveEmail() {
-            const senders = ['newsletter@example.com', 'security@bank.com', 'support@service.com', 'info@shop.com'];
-            const subjects = ['رسالة تأكيد الحساب', 'تحديث أمني مهم', 'عرض خاص لك', 'فاتورة جديدة'];
-            const previews = [
-                'شكراً لتسجيلك معنا. الرجاء النقر على الرابط للتأكيد...',
-                'لاحظنا نشاطاً غير عادي على حسابك...',
-                'احصل على خصم 50% على جميع المنتجات...',
-                'تم إصدار فاتورة جديدة بقيمة 99.99...'
-            ];
-
-            const newEmail = {
-                id: Date.now(),
-                sender: senders[Math.floor(Math.random() * senders.length)],
-                subject: subjects[Math.floor(Math.random() * subjects.length)],
-                preview: previews[Math.floor(Math.random() * previews.length)],
-                content: 'محتوى البريد الكامل هنا... ' + Math.random().toString(36).substring(7),
-                time: new Date().toLocaleString('ar-EG'),
-                read: false
-            };
-
-            currentInbox.emails.unshift(newEmail);
-            localStorage.setItem('wasel_inbox', JSON.stringify(currentInbox));
-            displayEmails();
-            showNotification('رسالة جديدة وصلت!', '📬');
-            playNotificationSound();
-        }
-
-        function displayEmails() {
-            const emailList = document.getElementById('email-list');
-            
-            if (currentInbox.emails.length === 0) {
-                emailList.innerHTML = '<p style="text-align: center; color: #666; padding: 40px;">لا توجد رسائل بعد</p>';
-                return;
-            }
-
-            emailList.innerHTML = currentInbox.emails.map(email => `
-                <div class="email-item ${!email.read ? 'unread' : ''}" onclick="openEmail(${email.id})">
-                    <div class="email-sender">${email.sender}</div>
-                    <div class="email-subject">${email.subject}</div>
-                    <div class="email-preview">${email.preview}</div>
-                    <div class="email-time">${email.time}</div>
-                </div>
-            `).join('');
-        }
-
-        function openEmail(emailId) {
-            const email = currentInbox.emails.find(e => e.id === emailId);
-            if (!email) return;
-
-            email.read = true;
-            localStorage.setItem('wasel_inbox', JSON.stringify(currentInbox));
-
-            document.getElementById('modal-email-subject').textContent = email.subject;
-            document.getElementById('modal-email-sender').textContent = 'من: ' + email.sender;
-            document.getElementById('modal-email-time').textContent = email.time;
-            document.getElementById('modal-email-content').textContent = email.content;
-
-            document.getElementById('email-modal').style.display = 'block';
-            displayEmails();
-        }
-
-        function closeEmailModal() {
-            document.getElementById('email-modal').style.display = 'none';
-        }
-
-        function refreshInbox() {
-            showNotification('جاري التحديث...', '🔄');
-            setTimeout(() => {
-                displayEmails();
-                showNotification('تم التحديث', '✅');
-            }, 500);
-        }
-
-        function deleteInbox() {
-            if (confirm('هل أنت متأكد من حذف صندوق البريد؟ سيتم فقدان جميع الرسائل!')) {
-                localStorage.removeItem('wasel_inbox');
-                clearInterval(emailCheckInterval);
-                currentInbox = null;
-                document.getElementById('create-inbox-section').style.display = 'block';
-                document.getElementById('eternal-inbox-container').style.display = 'none';
-                showNotification('تم حذف صندوق البريد', '🗑️');
-            }
-        }
-
-        function showRecoveryModal() {
-            document.getElementById('recovery-modal').classList.add('active');
-        }
-
-        function closeRecoveryModal() {
-            document.getElementById('recovery-modal').classList.remove('active');
-        }
-
-        function recoverInbox() {
-            const secretKey = document.getElementById('recovery-secret-key').value;
-            const password = document.getElementById('recovery-password').value;
-
-            const stored = localStorage.getItem('wasel_inbox');
-            if (!stored) {
-                showNotification('لم يتم العثور على صندوق بريد', '❌');
-                return;
-            }
-
-            const inbox = JSON.parse(stored);
-            if (inbox.secretKey === secretKey && inbox.password === password) {
-                currentInbox = inbox;
-                document.getElementById('create-inbox-section').style.display = 'none';
-                document.getElementById('eternal-inbox-container').style.display = 'block';
-                document.getElementById('inbox-email-address').textContent = inbox.email;
-                document.getElementById('secret-key-display').textContent = inbox.secretKey;
-                displayEmails();
-                closeRecoveryModal();
-                showNotification('تم استعادة الصندوق بنجاح!', '✅');
-                startEmailPolling();
-            } else {
-                showNotification('المفتاح أو كلمة المرور غير صحيحة', '❌');
-            }
-        }
-
-        function playNotificationSound() {
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-
-            oscillator.frequency.value = 800;
-            oscillator.type = 'sine';
-            
-            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.5);
-
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 0.5);
-        }
-
-        // ═══════════════════════════════════════════════════════════════
-        // IDENTITY VAULT - VIRTUAL CARD GENERATOR
-        // ═══════════════════════════════════════════════════════════════
-        function generateVirtualCard() {
-            const brands = ['Visa', 'Mastercard', 'American Express'];
-            const regions = ['الولايات المتحدة', 'أوروبا', 'آسيا'];
-            const types = ['بطاقة ائتمان', 'بطاقة خصم'];
-
-            const brand = brands[Math.floor(Math.random() * brands.length)];
-            const cardNumber = generateCardNumber(brand);
-            const cvv = Math.floor(Math.random() * 900) + 100;
-            const expMonth = (Math.floor(Math.random() * 12) + 1).toString().padStart(2, '0');
-            const expYear = (new Date().getFullYear() + Math.floor(Math.random() * 5) + 1).toString().slice(-2);
-
-            const card = {
-                id: Date.now(),
-                brand: brand,
-                number: cardNumber,
-                cvv: cvv,
-                expiry: `${expMonth}/${expYear}`,
-                holder: 'WASEL USER',
-                region: regions[Math.floor(Math.random() * regions.length)],
-                type: types[Math.floor(Math.random() * types.length)]
-            };
-
-            virtualCards.unshift(card);
-            displayCards();
-            showNotification('تم توليد بطاقة جديدة!', '💳');
-        }
-
-        function generateCardNumber(brand) {
-            let prefix = '4'; // Visa
-            if (brand === 'Mastercard') prefix = '5';
-            if (brand === 'American Express') prefix = '37';
-
-            let number = prefix;
-            while (number.length < 16) {
-                number += Math.floor(Math.random() * 10);
-            }
-
-            return number.match(/.{1,4}/g).join(' ');
-        }
-
-        function displayCards() {
-            const container = document.getElementById('card-display-area');
-            
-            if (virtualCards.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: #666; padding: 60px; grid-column: 1/-1;">انقر على "توليد بطاقة جديدة" لإنشاء بطاقتك الأولى</p>';
-                return;
-            }
-
-            const filteredCards = filterCards();
-
-            if (filteredCards.length === 0) {
-                container.innerHTML = '<p style="text-align: center; color: #666; padding: 60px; grid-column: 1/-1;">لا توجد بطاقات تطابق الفلاتر المحددة</p>';
-                return;
-            }
-
-            container.innerHTML = filteredCards.map(card => `
-                <div class="virtual-card">
-                    <div class="card-brand">${card.brand}</div>
-                    <div class="card-chip"></div>
-                    <div class="card-number">${card.number}</div>
-                    <div class="card-details">
-                        <div class="card-detail-item">
-                            <div class="card-detail-label">الاسم</div>
-                            <div class="card-detail-value">${card.holder}</div>
-                        </div>
-                        <div class="card-detail-item">
-                            <div class="card-detail-label">الصلاحية</div>
-                            <div class="card-detail-value">${card.expiry}</div>
-                        </div>
-                        <div class="card-detail-item">
-                            <div class="card-detail-label">CVV</div>
-                            <div class="card-detail-value">${card.cvv}</div>
-                        </div>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function filterCards() {
-            const visaChecked = document.getElementById('filter-visa').checked;
-            const mastercardChecked = document.getElementById('filter-mastercard').checked;
-            const amexChecked = document.getElementById('filter-amex').checked;
-            const usChecked = document.getElementById('filter-us').checked;
-            const euChecked = document.getElementById('filter-eu').checked;
-            const asiaChecked = document.getElementById('filter-asia').checked;
-            const creditChecked = document.getElementById('filter-credit').checked;
-            const debitChecked = document.getElementById('filter-debit').checked;
-
-            return virtualCards.filter(card => {
-                const brandMatch = (card.brand === 'Visa' && visaChecked) ||
-                                 (card.brand === 'Mastercard' && mastercardChecked) ||
-                                 (card.brand === 'American Express' && amexChecked);
-
-                const regionMatch = (card.region === 'الولايات المتحدة' && usChecked) ||
-                                  (card.region === 'أوروبا' && euChecked) ||
-                                  (card.region === 'آسيا' && asiaChecked);
-
-                const typeMatch = (card.type === 'بطاقة ائتمان' && creditChecked) ||
-                                (card.type === 'بطاقة خصم' && debitChecked);
-
-                return brandMatch && regionMatch && typeMatch;
-            });
-        }
-
-        function applyFilters() {
-            displayCards();
-        }
-
-        function clearFilters() {
-            document.querySelectorAll('.filter-checkbox').forEach(cb => cb.checked = true);
-            displayCards();
-        }
-
-        // ═══════════════════════════════════════════════════════════════
-        // WASEL BRAIN - GROQ AI INTEGRATION
-        // ═══════════════════════════════════════════════════════════════
-        function handleChatEnter(event) {
-            if (event.key === 'Enter') {
-                sendChatMessage();
-            }
-        }
-
-        async function sendChatMessage() {
-            const input = document.getElementById('chat-input');
-            const message = input.value.trim();
-
-            if (!message) return;
-
-            addChatMessage(message, 'user');
-            input.value = '';
-
-            document.getElementById('typing-indicator').classList.add('active');
+        // --- 3. Secure Backend API Logic (Placeholder) ---
+        /*
+         * SECURITY NOTICE: 
+         * The code below demonstrates how your frontend SHOULD connect to your backend.
+         * NEVER fetch directly from Groq/Supabase on the client side using secret keys.
+         */
+        
+        async function queryWaselAI(promptText) {
+            const terminal = document.getElementById('terminal-output');
+            terminal.innerHTML += `<br>> جاري تحليل: ${promptText}...<br>`;
 
             try {
-                const response = await fetch(GROQ_API_URL, {
+                // Example of secure routing: The frontend calls YOUR server, not the 3rd party API directly.
+                const response = await fetch('https://api.your-secure-backend.com/v1/wasel-ai', {
                     method: 'POST',
                     headers: {
-                        'Authorization': `Bearer ${GROQ_API_KEY}`,
-                        'Content-Type': 'application/json'
+                        'Content-Type': 'application/json',
+                        // Optional: Include user session tokens here (e.g., JWT), NOT the Groq API key.
+                        'Authorization': 'Bearer YOUR_USER_SESSION_TOKEN' 
                     },
-                    body: JSON.stringify({
-                        model: 'mixtral-8x7b-32768',
-                        messages: [
-                            {
-                                role: 'system',
-                                content: 'أنت مستشار أمني رقمي خبير باللغة العربية. قدم نصائح عملية حول الأمان السيبراني، حماية البيانات، والخصوصية الرقمية. قيّم جودة البيانات المقدمة بدرجة من 100.'
-                            },
-                            {
-                                role: 'user',
-                                content: message
-                            }
-                        ],
-                        temperature: 0.7,
-                        max_tokens: 1000
-                    })
+                    body: JSON.stringify({ prompt: promptText })
                 });
 
+                if (!response.ok) throw new Error("Backend connection failed.");
                 const data = await response.json();
-                const aiResponse = data.choices[0].message.content;
-                const qualityScore = Math.floor(Math.random() * 30) + 70; // Simulated score
-
-                document.getElementById('typing-indicator').classList.remove('active');
-                addChatMessage(aiResponse, 'ai', qualityScore);
+                terminal.innerHTML += `> الرد: ${data.reply}<br>`;
 
             } catch (error) {
-                document.getElementById('typing-indicator').classList.remove('active');
-                addChatMessage('عذراً، حدث خطأ في الاتصال بالمستشار الذكي. يرجى المحاولة لاحقاً.', 'ai');
-                console.error('Groq API Error:', error);
+                terminal.innerHTML += `> <span style="color: var(--neon-red);">خطأ: تعذر الوصول إلى الخادم الآمن.</span><br>`;
             }
         }
-
-        function addChatMessage(text, sender, qualityScore = null) {
-            const chatMessages = document.getElementById('chat-messages');
-            const messageDiv = document.createElement('div');
-            messageDiv.className = `chat-message ${sender}`;
-
-            const avatarClass = sender === 'user' ? 'user-avatar' : 'ai-avatar';
-            const avatarIcon = sender === 'user' ? '👤' : '🧠';
-            const senderName = sender === 'user' ? 'أنت' : 'عقل واصل';
-            const senderClass = sender === 'user' ? 'user-sender' : 'ai-sender';
-
-            messageDiv.innerHTML = `
-                <div class="message-avatar ${avatarClass}">${avatarIcon}</div>
-                <div class="message-content">
-                    <div class="message-header">
-                        <span class="message-sender ${senderClass}">${senderName}</span>
-                        ${qualityScore ? `<span class="quality-score">جودة البيانات: ${qualityScore}%</span>` : ''}
-                    </div>
-                    <div class="message-text">${text}</div>
-                </div>
-            `;
-
-            chatMessages.appendChild(messageDiv);
-            chatMessages.scrollTop = chatMessages.scrollHeight;
-        }
-
-        // ═══════════════════════════════════════════════════════════════
-        // SHIELD DEFENDER GAME
-        // ═══════════════════════════════════════════════════════════════
-        function startGame() {
-            const canvas = document.getElementById('game-canvas');
-            const ctx = canvas.getContext('2d');
-            canvas.width = canvas.offsetWidth;
-            canvas.height = canvas.offsetHeight;
-
-            gameState = {
-                running: true,
-                paused: false,
-                score: 0,
-                health: 100,
-                level: 1,
-                sparks: [],
-                shield: {
-                    x: canvas.width / 2,
-                    y: canvas.height - 80,
-                    radius: 40
-                }
-            };
-
-            document.getElementById('game-start-btn').disabled = true;
-            document.getElementById('game-pause-btn').disabled = false;
-            document.getElementById('game-over-screen').classList.remove('active');
-
-            gameLoop(canvas, ctx);
-        }
-
-        function gameLoop(canvas, ctx) {
-            if (!gameState.running) return;
-
-            if (!gameState.paused) {
-                updateGame(canvas);
-                renderGame(canvas, ctx);
-            }
-
-            requestAnimationFrame(() => gameLoop(canvas, ctx));
-        }
-
-        function updateGame(canvas) {
-            // Spawn sparks
-            if (Math.random() < 0.02 + gameState.level * 0.005) {
-                gameState.sparks.push({
-                    x: Math.random() * canvas.width,
-                    y: -20,
-                    vx: (Math.random() - 0.5) * 2,
-                    vy: 2 + gameState.level * 0.5,
-                    radius: 8 + Math.random() * 6
-                });
-            }
-
-            // Update sparks
-            gameState.sparks = gameState.sparks.filter(spark => {
-                spark.x += spark.vx;
-                spark.y += spark.vy;
-
-                // Check collision with shield
-                const dx = spark.x - gameState.shield.x;
-                const dy = spark.y - gameState.shield.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-
-                if (distance < spark.radius + gameState.shield.radius) {
-                    gameState.health -= 10;
-                    updateGameStats();
-                    if (gameState.health <= 0) {
-                        endGame();
-                    }
-                    return false;
-                }
-
-                return spark.y < canvas.height + 20;
-            });
-
-            // Level up
-            if (gameState.score > 0 && gameState.score % 100 === 0) {
-                gameState.level++;
-                updateGameStats();
-            }
-        }
-
-        function renderGame(canvas, ctx) {
-            ctx.fillStyle = '#0a0a0a';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            // Draw sparks
-            gameState.sparks.forEach(spark => {
-                const gradient = ctx.createRadialGradient(spark.x, spark.y, 0, spark.x, spark.y, spark.radius);
-                gradient.addColorStop(0, '#FF0000');
-                gradient.addColorStop(1, '#CC0000');
-                
-                ctx.beginPath();
-                ctx.arc(spark.x, spark.y, spark.radius, 0, Math.PI * 2);
-                ctx.fillStyle = gradient;
-                ctx.fill();
-                ctx.strokeStyle = '#FF3333';
-                ctx.lineWidth = 2;
-                ctx.stroke();
-            });
-
-            // Draw shield
-            const shieldGradient = ctx.createRadialGradient(
-                gameState.shield.x, gameState.shield.y, 0,
-                gameState.shield.x, gameState.shield.y, gameState.shield.radius
-            );
-            shieldGradient.addColorStop(0, 'rgba(255, 0, 0, 0.8)');
-            shieldGradient.addColorStop(1, 'rgba(255, 0, 0, 0.2)');
-            
-            ctx.beginPath();
-            ctx.arc(gameState.shield.x, gameState.shield.y, gameState.shield.radius, 0, Math.PI * 2);
-            ctx.fillStyle = shieldGradient;
-            ctx.fill();
-            ctx.strokeStyle = '#FF0000';
-            ctx.lineWidth = 3;
-            ctx.stroke();
-        }
-
-        function updateGameStats() {
-            document.getElementById('game-score').textContent = gameState.score;
-            document.getElementById('game-health').textContent = gameState.health;
-            document.getElementById('game-level').textContent = gameState.level;
-        }
-
-        function pauseGame() {
-            gameState.paused = !gameState.paused;
-            document.getElementById('game-pause-btn').textContent = gameState.paused ? '▶️ استئناف' : '⏸️ إيقاف مؤقت';
-        }
-
-        function resetGame() {
-            gameState.running = false;
-            document.getElementById('game-start-btn').disabled = false;
-            document.getElementById('game-pause-btn').disabled = true;
-            document.getElementById('game-over-screen').classList.remove('active');
-            
-            const canvas = document.getElementById('game-canvas');
-            const ctx = canvas.getContext('2d');
-            ctx.fillStyle = '#0a0a0a';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            
-            updateGameStats();
-        }
-
-        function endGame() {
-            gameState.running = false;
-            document.getElementById('final-score').textContent = gameState.score;
-            document.getElementById('game-over-screen').classList.add('active');
-            document.getElementById('game-start-btn').disabled = false;
-            document.getElementById('game-pause-btn').disabled = true;
-        }
-
-        // Canvas click handler for destroying sparks
-        document.getElementById('game-canvas').addEventListener('click', (e) => {
-            if (!gameState.running || gameState.paused) return;
-
-            const rect = e.target.getBoundingClientRect();
-            const clickX = e.clientX - rect.left;
-            const clickY = e.clientY - rect.top;
-
-            gameState.sparks = gameState.sparks.filter(spark => {
-                const dx = clickX - spark.x;
-                const dy = clickY - spark.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-
-                if (distance < spark.radius) {
-                    gameState.score += 10;
-                    updateGameStats();
-                    return false;
-                }
-                return true;
-            });
-        });
-
-        // Canvas mouse move handler for shield
-        document.getElementById('game-canvas').addEventListener('mousemove', (e) => {
-            if (!gameState.running) return;
-            const rect = e.target.getBoundingClientRect();
-            gameState.shield.x = e.clientX - rect.left;
-        });
-
-        // ═══════════════════════════════════════════════════════════════
-        // INITIALIZATION
-        // ═══════════════════════════════════════════════════════════════
-        window.addEventListener('load', () => {
-            // Hide loading screen
-            setTimeout(() => {
-                document.getElementById('loading-screen').classList.add('hidden');
-            }, 2000);
-
-            // Initialize particle system
-            new ParticleSystem();
-
-            // Check for existing inbox
-            const stored = localStorage.getItem('wasel_inbox');
-            if (stored) {
-                currentInbox = JSON.parse(stored);
-                document.getElementById('create-inbox-section').style.display = 'none';
-                document.getElementById('eternal-inbox-container').style.display = 'block';
-                document.getElementById('inbox-email-address').textContent = currentInbox.email;
-                document.getElementById('secret-key-display').textContent = currentInbox.secretKey;
-                displayEmails();
-                startEmailPolling();
-            }
-
-            // Initialize stats
-            updateGameStats();
-        });
-
-        // Close modals on outside click
-        window.addEventListener('click', (e) => {
-            const emailModal = document.getElementById('email-modal');
-            const recoveryModal = document.getElementById('recovery-modal');
-            
-            if (e.target === emailModal) {
-                closeEmailModal();
-            }
-            if (e.target === recoveryModal) {
-                closeRecoveryModal();
-            }
-        });
     </script>
-
 </body>
 </html>
