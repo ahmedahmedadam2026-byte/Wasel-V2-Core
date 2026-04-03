@@ -3,74 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="واصل - منصة الخصوصية الرقمية الأولى في الوطن العربي. خدمات الهوية الآمنة والبريد الإلكتروني الأبدي مع حماية متقدمة">
-    <meta name="keywords" content="خصوصية رقمية, بريد إلكتروني آمن, هوية رقمية, حماية البيانات, واصل">
+    <meta name="description" content="واصل - منصة الخصوصية الرقمية الأولى في الوطن العربي. خدمات الهوية الآمنة والبريد الإلكتروني الأبدي مع حماية متقدمة من الطراز العسكري">
+    <meta name="keywords" content="خصوصية رقمية, بريد إلكتروني آمن, هوية رقمية, حماية البيانات, واصل, تشفير, أمن سيبراني, حماية الخصوصية">
     <meta name="author" content="Adam Ahmed">
     <meta property="og:title" content="واصل - حماية خصوصيتك الرقمية">
-    <meta property="og:description" content="منصة متكاملة لحماية هويتك الرقمية وبريدك الإلكتروني">
+    <meta property="og:description" content="منصة متكاملة لحماية هويتك الرقمية وبريدك الإلكتروني مدى الحياة">
     <meta property="og:type" content="website">
-    <title>واصل - حماية خصوصيتك الرقمية</title>
+    <meta property="og:image" content="https://via.placeholder.com/1200x630/000000/FF0000?text=WASEL">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>🛡️</text></svg>">
+    <title>واصل - حماية خصوصيتك الرقمية | Wasel Digital Privacy</title>
     
     <style>
-        /* ==================== RESET & VARIABLES ==================== */
+        /* ==================== WASEL V2 - COMPLETE CSS FRAMEWORK ==================== */
+        /* ==================== CRITICAL RESET & ROOT VARIABLES ==================== */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         :root {
+            /* Primary Colors */
             --electric-red: #FF0000;
             --pure-black: #000000;
             --dark-gray: #0a0a0a;
             --light-gray: #1a1a1a;
+            --medium-gray: #2a2a2a;
+            
+            /* Text Colors */
             --text-white: #ffffff;
             --text-gray: #cccccc;
+            --text-dark-gray: #999999;
+            
+            /* Red Variations */
+            --red-dark: #cc0000;
+            --red-light: #ff4444;
+            --red-lighter: #ff6666;
+            --red-ultra-light: #ff9999;
+            
+            /* Shadow & Effects */
             --shadow-red: rgba(255, 0, 0, 0.3);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --shadow-red-strong: rgba(255, 0, 0, 0.6);
+            --glow-red: 0 0 20px rgba(255, 0, 0, 0.5);
+            --glow-red-strong: 0 0 40px rgba(255, 0, 0, 0.8);
+            
+            /* Glassmorphism */
+            --glass-bg: rgba(26, 26, 26, 0.7);
+            --glass-border: rgba(255, 0, 0, 0.2);
+            --glass-hover: rgba(26, 26, 26, 0.85);
+            
+            /* Transitions */
+            --transition-fast: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-normal: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-slow: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            
+            /* Z-Index Layers */
+            --z-canvas: 1;
+            --z-content: 2;
+            --z-navbar: 1000;
+            --z-modal: 9998;
+            --z-game: 9999;
+            --z-notification: 99999;
+            --z-loading: 999999;
+        }
+
+        /* ==================== GLOBAL STYLES ==================== */
+        html {
+            scroll-behavior: smooth;
+            overflow-x: hidden;
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Segoe UI', Tahoma, 'Noto Sans Arabic', Geneva, Verdana, sans-serif;
             background: var(--pure-black);
             color: var(--text-white);
             overflow-x: hidden;
-            line-height: 1.6;
+            line-height: 1.8;
+            position: relative;
+            min-height: 100vh;
         }
 
-        /* ==================== CANVAS BACKGROUND ==================== */
+        ::selection {
+            background: var(--electric-red);
+            color: var(--text-white);
+        }
+
+        ::-webkit-scrollbar {
+            width: 12px;
+            background: var(--pure-black);
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--dark-gray);
+            border-left: 1px solid var(--glass-border);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, var(--electric-red), var(--red-dark));
+            border-radius: 6px;
+            border: 2px solid var(--dark-gray);
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, var(--red-light), var(--electric-red));
+        }
+
+        /* ==================== CANVAS PARTICLE BACKGROUND ==================== */
         #particleCanvas {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
+            width: 100vw;
+            height: 100vh;
+            z-index: var(--z-canvas);
             pointer-events: none;
+            background: linear-gradient(180deg, 
+                var(--pure-black) 0%, 
+                rgba(10, 0, 0, 1) 50%, 
+                var(--pure-black) 100%
+            );
         }
 
         /* ==================== MAIN CONTAINER ==================== */
         .main-container {
             position: relative;
-            z-index: 2;
+            z-index: var(--z-content);
             min-height: 100vh;
         }
 
-        /* ==================== NAVIGATION ==================== */
+        /* ==================== NAVIGATION BAR ==================== */
         .navbar {
             position: fixed;
             top: 0;
+            left: 0;
             width: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(10px);
+            background: rgba(0, 0, 0, 0.92);
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
             padding: 1rem 0;
-            z-index: 1000;
-            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
-            transition: var(--transition);
+            z-index: var(--z-navbar);
+            border-bottom: 1px solid var(--glass-border);
+            transition: var(--transition-normal);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
         }
 
         .navbar.scrolled {
-            box-shadow: 0 5px 30px var(--shadow-red);
+            background: rgba(0, 0, 0, 0.95);
+            box-shadow: 0 8px 40px var(--shadow-red);
+            border-bottom-color: var(--electric-red);
         }
 
         .nav-container {
@@ -80,104 +163,159 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 2rem;
         }
 
         .logo-container {
             display: flex;
             align-items: center;
             gap: 1rem;
+            cursor: pointer;
+            transition: var(--transition-normal);
+        }
+
+        .logo-container:hover {
+            transform: translateY(-2px);
         }
 
         .wasel-shield {
-            width: 50px;
-            height: 50px;
+            width: 55px;
+            height: 55px;
             position: relative;
-            animation: shieldPulse 2s ease-in-out infinite;
+            animation: shieldPulse 3s ease-in-out infinite, shieldRotate 20s linear infinite;
+            filter: drop-shadow(var(--glow-red));
+        }
+
+        @keyframes shieldPulse {
+            0%, 100% { 
+                transform: scale(1);
+                filter: drop-shadow(0 0 10px rgba(255, 0, 0, 0.5));
+            }
+            50% { 
+                transform: scale(1.08);
+                filter: drop-shadow(0 0 25px rgba(255, 0, 0, 0.8));
+            }
+        }
+
+        @keyframes shieldRotate {
+            0% { transform: rotate(0deg) scale(1); }
+            50% { transform: rotate(180deg) scale(1.05); }
+            100% { transform: rotate(360deg) scale(1); }
         }
 
         .shield-svg {
             width: 100%;
             height: 100%;
-            filter: drop-shadow(0 0 10px var(--electric-red));
-        }
-
-        @keyframes shieldPulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
         }
 
         .logo-text {
-            font-size: 1.8rem;
-            font-weight: bold;
-            background: linear-gradient(135deg, var(--electric-red) 0%, #ff4444 100%);
+            font-size: 2rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, 
+                var(--text-white) 0%, 
+                var(--red-light) 50%, 
+                var(--electric-red) 100%
+            );
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
+            letter-spacing: 1px;
+            text-shadow: 0 0 30px var(--shadow-red);
+            font-family: 'Arial Black', sans-serif;
         }
 
         .nav-menu {
             display: flex;
             list-style: none;
-            gap: 2.5rem;
+            gap: 3rem;
             align-items: center;
         }
 
         .nav-link {
             color: var(--text-white);
             text-decoration: none;
-            font-size: 1rem;
-            font-weight: 500;
+            font-size: 1.05rem;
+            font-weight: 600;
             position: relative;
-            padding: 0.5rem 0;
-            transition: var(--transition);
+            padding: 0.6rem 0;
+            transition: var(--transition-normal);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
-        .nav-link::after {
+        .nav-link::before {
             content: '';
             position: absolute;
             bottom: 0;
-            left: 0;
+            right: 0;
             width: 0;
-            height: 2px;
-            background: var(--electric-red);
-            transition: var(--transition);
+            height: 3px;
+            background: linear-gradient(90deg, var(--electric-red), var(--red-light));
+            transition: var(--transition-normal);
+            border-radius: 2px;
+        }
+
+        .nav-link::after {
+            content: '◆';
+            opacity: 0;
+            transform: translateX(-10px);
+            transition: var(--transition-normal);
+            color: var(--electric-red);
+            font-size: 0.7rem;
+        }
+
+        .nav-link:hover::before,
+        .nav-link.active::before {
+            width: 100%;
         }
 
         .nav-link:hover::after,
         .nav-link.active::after {
-            width: 100%;
+            opacity: 1;
+            transform: translateX(0);
         }
 
         .nav-link:hover,
         .nav-link.active {
             color: var(--electric-red);
+            text-shadow: 0 0 10px var(--shadow-red);
         }
 
         .mobile-toggle {
             display: none;
             flex-direction: column;
             cursor: pointer;
-            gap: 5px;
+            gap: 6px;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: var(--transition-normal);
+        }
+
+        .mobile-toggle:hover {
+            background: var(--glass-bg);
         }
 
         .mobile-toggle span {
-            width: 25px;
+            width: 28px;
             height: 3px;
-            background: var(--electric-red);
-            transition: var(--transition);
-            border-radius: 2px;
+            background: linear-gradient(90deg, var(--electric-red), var(--red-light));
+            transition: var(--transition-normal);
+            border-radius: 3px;
+            box-shadow: 0 0 10px var(--shadow-red);
         }
 
         .mobile-toggle.active span:nth-child(1) {
-            transform: rotate(45deg) translate(8px, 8px);
+            transform: rotate(45deg) translate(9px, 9px);
         }
 
         .mobile-toggle.active span:nth-child(2) {
             opacity: 0;
+            transform: translateX(-20px);
         }
 
         .mobile-toggle.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -7px);
+            transform: rotate(-45deg) translate(9px, -9px);
         }
 
         /* ==================== HERO SECTION ==================== */
@@ -187,78 +325,115 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-            padding: 8rem 2rem 4rem;
+            padding: 10rem 2rem 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, 
+                rgba(255, 0, 0, 0.15) 0%, 
+                transparent 70%
+            );
+            transform: translate(-50%, -50%);
+            animation: heroGlow 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes heroGlow {
+            0%, 100% { 
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.3;
+            }
+            50% { 
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.6;
+            }
         }
 
         .hero-content {
-            max-width: 900px;
+            max-width: 1000px;
+            position: relative;
+            z-index: 2;
         }
 
         .hero-title {
-            font-size: 4rem;
-            font-weight: 800;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(135deg, var(--text-white) 0%, var(--electric-red) 100%);
+            font-size: 5rem;
+            font-weight: 900;
+            margin-bottom: 2rem;
+            background: linear-gradient(135deg, 
+                var(--text-white) 0%, 
+                var(--red-lighter) 50%, 
+                var(--electric-red) 100%
+            );
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: fadeInUp 1s ease-out;
+            animation: fadeInUp 1s ease-out, titleGlow 3s ease-in-out infinite;
+            line-height: 1.2;
+            text-shadow: 0 0 40px var(--shadow-red-strong);
+        }
+
+        @keyframes titleGlow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.3)); }
+            50% { filter: drop-shadow(0 0 40px rgba(255, 0, 0, 0.6)); }
         }
 
         .hero-subtitle {
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             color: var(--text-gray);
-            margin-bottom: 3rem;
+            margin-bottom: 3.5rem;
             animation: fadeInUp 1s ease-out 0.2s both;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+        }
+
+        .hero-stats {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            animation: fadeInUp 1s ease-out 0.3s both;
+        }
+
+        .hero-stat {
+            text-align: center;
+        }
+
+        .hero-stat-number {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--electric-red);
+            display: block;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 0 20px var(--shadow-red);
+        }
+
+        .hero-stat-label {
+            font-size: 1rem;
+            color: var(--text-gray);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .cta-buttons {
             display: flex;
-            gap: 1.5rem;
+            gap: 2rem;
             justify-content: center;
             flex-wrap: wrap;
             animation: fadeInUp 1s ease-out 0.4s both;
         }
 
-        .btn {
-            padding: 1rem 2.5rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border: none;
-            border-radius: 50px;
-            cursor: pointer;
-            transition: var(--transition);
-            text-decoration: none;
-            display: inline-block;
-        }
-
-        .btn-primary {
-            background: var(--electric-red);
-            color: var(--text-white);
-            box-shadow: 0 5px 25px var(--shadow-red);
-        }
-
-        .btn-primary:hover {
-            background: #cc0000;
-            transform: translateY(-3px);
-            box-shadow: 0 8px 35px var(--shadow-red);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: var(--text-white);
-            border: 2px solid var(--electric-red);
-        }
-
-        .btn-secondary:hover {
-            background: var(--electric-red);
-            transform: translateY(-3px);
-        }
-
         @keyframes fadeInUp {
             from {
                 opacity: 0;
-                transform: translateY(30px);
+                transform: translateY(40px);
             }
             to {
                 opacity: 1;
@@ -266,10 +441,86 @@
             }
         }
 
+        /* ==================== BUTTON STYLES ==================== */
+        .btn {
+            padding: 1.2rem 3rem;
+            font-size: 1.15rem;
+            font-weight: 700;
+            border: none;
+            border-radius: 60px;
+            cursor: pointer;
+            transition: var(--transition-normal);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.8rem;
+            position: relative;
+            overflow: hidden;
+            font-family: inherit;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--electric-red), var(--red-dark));
+            color: var(--text-white);
+            box-shadow: 0 8px 30px var(--shadow-red), 
+                        0 0 0 0 rgba(255, 0, 0, 0.4);
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, var(--red-light), var(--electric-red));
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 40px var(--shadow-red-strong),
+                        0 0 0 8px rgba(255, 0, 0, 0.1);
+        }
+
+        .btn-primary:active {
+            transform: translateY(-2px) scale(0.98);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-white);
+            border: 3px solid var(--electric-red);
+            box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+        }
+
+        .btn-secondary:hover {
+            background: var(--electric-red);
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 8px 30px var(--shadow-red);
+        }
+
         /* ==================== FEATURES SECTION ==================== */
         .features-section {
-            padding: 6rem 2rem;
-            background: rgba(10, 10, 10, 0.5);
+            padding: 8rem 2rem;
+            background: linear-gradient(180deg, 
+                transparent 0%, 
+                rgba(10, 10, 10, 0.6) 50%, 
+                transparent 100%
+            );
+            position: relative;
         }
 
         .container {
@@ -279,80 +530,153 @@
 
         .section-title {
             text-align: center;
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: var(--electric-red);
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(135deg, 
+                var(--electric-red) 0%, 
+                var(--red-light) 100%
+            );
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 900;
+            position: relative;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--electric-red), 
+                transparent
+            );
+            border-radius: 2px;
         }
 
         .section-subtitle {
             text-align: center;
-            font-size: 1.2rem;
+            font-size: 1.4rem;
             color: var(--text-gray);
-            margin-bottom: 4rem;
+            margin-bottom: 5rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
         }
 
         .features-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2.5rem;
-        }
-
-        .feature-card {
-            background: rgba(26, 26, 26, 0.8);
-            padding: 2.5rem;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 0, 0, 0.1);
-            transition: var(--transition);
-            cursor: pointer;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            border-color: var(--electric-red);
-            box-shadow: 0 10px 40px var(--shadow-red);
-        }
-
-        .feature-icon {
-            width: 70px;
-            height: 70px;
-            background: linear-gradient(135deg, var(--electric-red), #cc0000);
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .feature-title {
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-            color: var(--text-white);
-        }
-
-        .feature-description {
-            color: var(--text-gray);
-            line-height: 1.8;
-        }
-
-        /* ==================== SERVICES SECTION ==================== */
-        .services-section {
-            padding: 6rem 2rem;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 3rem;
             margin-top: 4rem;
         }
 
-        .service-card {
-            background: linear-gradient(135deg, rgba(26, 26, 26, 0.9), rgba(10, 10, 10, 0.9));
-            padding: 3rem;
+        .feature-card {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 3rem 2.5rem;
             border-radius: 25px;
+            border: 1px solid var(--glass-border);
+            transition: var(--transition-normal);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                rgba(255, 0, 0, 0.1) 0%, 
+                transparent 100%
+            );
+            opacity: 0;
+            transition: var(--transition-normal);
+        }
+
+        .feature-card:hover::before {
+            opacity: 1;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            border-color: var(--electric-red);
+            box-shadow: 0 20px 60px var(--shadow-red-strong),
+                        0 0 0 1px var(--electric-red);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, var(--electric-red), var(--red-dark));
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px var(--shadow-red);
+            transition: var(--transition-normal);
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-card:hover .feature-icon {
+            transform: rotateY(360deg) scale(1.1);
+            box-shadow: 0 15px 40px var(--shadow-red-strong);
+        }
+
+        .feature-title {
+            font-size: 1.7rem;
+            margin-bottom: 1.2rem;
+            color: var(--text-white);
+            font-weight: 700;
+            position: relative;
+            z-index: 1;
+        }
+
+        .feature-description {
+            color: var(--text-gray);
+            line-height: 1.9;
+            font-size: 1.05rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* ==================== SERVICES SECTION ==================== */
+        .services-section {
+            padding: 8rem 2rem;
+            position: relative;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 4rem;
+            margin-top: 5rem;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, 
+                rgba(26, 26, 26, 0.95) 0%, 
+                rgba(10, 10, 10, 0.95) 100%
+            );
+            backdrop-filter: blur(20px);
+            padding: 3.5rem;
+            border-radius: 30px;
             border: 2px solid transparent;
-            transition: var(--transition);
+            transition: var(--transition-normal);
             position: relative;
             overflow: hidden;
         }
@@ -364,52 +688,84 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(135deg, var(--electric-red), transparent);
+            background: linear-gradient(135deg, 
+                var(--electric-red), 
+                transparent
+            );
             opacity: 0;
-            transition: var(--transition);
+            transition: var(--transition-normal);
         }
 
         .service-card:hover::before {
-            opacity: 0.1;
+            opacity: 0.15;
+        }
+
+        .service-card::after {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(135deg, 
+                var(--electric-red), 
+                var(--red-light), 
+                var(--electric-red)
+            );
+            border-radius: 30px;
+            z-index: -1;
+            opacity: 0;
+            transition: var(--transition-normal);
+        }
+
+        .service-card:hover::after {
+            opacity: 1;
         }
 
         .service-card:hover {
-            border-color: var(--electric-red);
-            transform: scale(1.02);
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 25px 70px var(--shadow-red-strong);
         }
 
         .service-header {
             display: flex;
             align-items: center;
-            gap: 1.5rem;
-            margin-bottom: 2rem;
+            gap: 2rem;
+            margin-bottom: 2.5rem;
             position: relative;
             z-index: 1;
         }
 
         .service-icon {
-            width: 80px;
-            height: 80px;
-            background: var(--electric-red);
-            border-radius: 20px;
+            width: 90px;
+            height: 90px;
+            background: linear-gradient(135deg, var(--electric-red), var(--red-dark));
+            border-radius: 25px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.5rem;
-            box-shadow: 0 5px 20px var(--shadow-red);
+            font-size: 3rem;
+            box-shadow: 0 10px 40px var(--shadow-red);
+            transition: var(--transition-bounce);
+        }
+
+        .service-card:hover .service-icon {
+            transform: rotate(360deg) scale(1.15);
         }
 
         .service-title {
-            font-size: 2rem;
+            font-size: 2.2rem;
             color: var(--text-white);
+            font-weight: 900;
         }
 
         .service-description {
             color: var(--text-gray);
-            line-height: 1.8;
-            margin-bottom: 2rem;
+            line-height: 2;
+            margin-bottom: 2.5rem;
             position: relative;
             z-index: 1;
+            font-size: 1.1rem;
         }
 
         .service-features {
@@ -419,10 +775,18 @@
         }
 
         .service-features li {
-            padding: 0.8rem 0;
+            padding: 1rem 0;
             color: var(--text-gray);
             position: relative;
-            padding-right: 2rem;
+            padding-right: 2.5rem;
+            font-size: 1.05rem;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.1);
+            transition: var(--transition-normal);
+        }
+
+        .service-features li:hover {
+            color: var(--text-white);
+            padding-right: 3rem;
         }
 
         .service-features li::before {
@@ -431,221 +795,427 @@
             right: 0;
             color: var(--electric-red);
             font-weight: bold;
+            font-size: 1.3rem;
+            text-shadow: 0 0 10px var(--shadow-red);
+        }
+
+        .service-features li:last-child {
+            border-bottom: none;
+        }
+
+        /* ==================== THREAT RADAR (Animated Visual) ==================== */
+        .threat-radar {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            margin: 4rem auto;
+            border-radius: 50%;
+            background: radial-gradient(circle, 
+                rgba(255, 0, 0, 0.1) 0%, 
+                transparent 70%
+            );
+            border: 2px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .radar-line {
+            position: absolute;
+            width: 2px;
+            height: 50%;
+            background: linear-gradient(180deg, 
+                var(--electric-red), 
+                transparent
+            );
+            top: 50%;
+            left: 50%;
+            transform-origin: top center;
+            animation: radarScan 3s linear infinite;
+            box-shadow: 0 0 20px var(--shadow-red);
+        }
+
+        @keyframes radarScan {
+            0% { transform: translate(-50%, 0) rotate(0deg); }
+            100% { transform: translate(-50%, 0) rotate(360deg); }
+        }
+
+        .radar-dot {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--electric-red);
+            border-radius: 50%;
+            box-shadow: 0 0 20px var(--shadow-red);
+            animation: radarBlip 2s ease-in-out infinite;
+        }
+
+        .radar-dot:nth-child(2) { top: 20%; left: 30%; animation-delay: 0.3s; }
+        .radar-dot:nth-child(3) { top: 60%; left: 70%; animation-delay: 0.6s; }
+        .radar-dot:nth-child(4) { top: 40%; left: 50%; animation-delay: 0.9s; }
+
+        @keyframes radarBlip {
+            0%, 100% { 
+                transform: scale(1);
+                opacity: 1;
+            }
+            50% { 
+                transform: scale(2);
+                opacity: 0.5;
+            }
         }
 
         /* ==================== ABOUT SECTION ==================== */
         .about-section {
-            padding: 6rem 2rem;
-            background: rgba(10, 10, 10, 0.5);
+            padding: 8rem 2rem;
+            background: linear-gradient(180deg, 
+                transparent 0%, 
+                rgba(10, 10, 10, 0.6) 50%, 
+                transparent 100%
+            );
         }
 
         .about-content {
-            max-width: 1200px;
+            max-width: 1300px;
             margin: 0 auto;
         }
 
         .about-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 4rem;
-            margin-top: 3rem;
+            gap: 5rem;
+            margin-top: 4rem;
         }
 
         .about-text {
             display: flex;
             flex-direction: column;
-            gap: 2rem;
+            gap: 3rem;
         }
 
         .about-text h3 {
             color: var(--electric-red);
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
+            font-size: 2rem;
+            margin-bottom: 1.2rem;
+            font-weight: 800;
+            text-shadow: 0 0 20px var(--shadow-red);
         }
 
         .about-text p {
             color: var(--text-gray);
-            line-height: 2;
-            font-size: 1.1rem;
+            line-height: 2.2;
+            font-size: 1.15rem;
+            text-align: justify;
+        }
+
+        .about-text strong {
+            color: var(--text-white);
+            font-weight: 700;
         }
 
         .about-stats {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 2rem;
+            gap: 2.5rem;
         }
 
         .stat-card {
-            background: rgba(26, 26, 26, 0.8);
-            padding: 2rem;
-            border-radius: 15px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            padding: 2.5rem;
+            border-radius: 20px;
             text-align: center;
-            border: 1px solid rgba(255, 0, 0, 0.2);
+            border: 1px solid var(--glass-border);
+            transition: var(--transition-normal);
+            cursor: pointer;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+            border-color: var(--electric-red);
+            box-shadow: 0 15px 40px var(--shadow-red);
         }
 
         .stat-number {
-            font-size: 3rem;
-            font-weight: bold;
-            color: var(--electric-red);
-            margin-bottom: 0.5rem;
+            font-size: 3.5rem;
+            font-weight: 900;
+            background: linear-gradient(135deg, var(--electric-red), var(--red-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 0.8rem;
+            display: block;
         }
 
         .stat-label {
             color: var(--text-gray);
-            font-size: 1.1rem;
+            font-size: 1.15rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .about-mission {
-            background: linear-gradient(135deg, rgba(255, 0, 0, 0.1), transparent);
-            padding: 3rem;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            margin-top: 3rem;
+            background: linear-gradient(135deg, 
+                rgba(255, 0, 0, 0.15), 
+                rgba(255, 0, 0, 0.05)
+            );
+            backdrop-filter: blur(20px);
+            padding: 4rem;
+            border-radius: 25px;
+            border: 1px solid var(--glass-border);
+            margin-top: 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .about-mission::before {
+            content: '🛡️';
+            position: absolute;
+            top: -20px;
+            right: -20px;
+            font-size: 15rem;
+            opacity: 0.05;
+            pointer-events: none;
         }
 
         .about-mission h3 {
             color: var(--electric-red);
-            font-size: 2rem;
-            margin-bottom: 1.5rem;
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
             text-align: center;
+            font-weight: 900;
+            text-shadow: 0 0 20px var(--shadow-red);
         }
 
         .about-mission p {
             color: var(--text-gray);
-            line-height: 2;
-            font-size: 1.1rem;
+            line-height: 2.2;
+            font-size: 1.2rem;
             text-align: center;
+            position: relative;
+            z-index: 1;
         }
 
         /* ==================== LEGAL SECTION ==================== */
         .legal-section {
-            padding: 6rem 2rem;
+            padding: 8rem 2rem;
             min-height: 100vh;
         }
 
         .legal-content {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
-            background: rgba(26, 26, 26, 0.8);
-            padding: 3rem;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 0, 0, 0.2);
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            padding: 4rem;
+            border-radius: 30px;
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 10px 50px rgba(0, 0, 0, 0.5);
         }
 
         .legal-section-block {
-            margin-bottom: 3rem;
+            margin-bottom: 4rem;
+            padding-bottom: 3rem;
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        .legal-section-block:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
         }
 
         .legal-section-block h3 {
             color: var(--electric-red);
-            font-size: 1.8rem;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 2px solid rgba(255, 0, 0, 0.3);
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .legal-section-block h3::before {
+            content: '▸';
+            color: var(--electric-red);
+            font-size: 1.5rem;
         }
 
         .legal-section-block h4 {
             color: var(--text-white);
-            font-size: 1.3rem;
-            margin: 1.5rem 0 1rem;
+            font-size: 1.5rem;
+            margin: 2rem 0 1.2rem;
+            font-weight: 700;
         }
 
         .legal-section-block p,
         .legal-section-block li {
             color: var(--text-gray);
-            line-height: 2;
-            margin-bottom: 1rem;
+            line-height: 2.2;
+            margin-bottom: 1.2rem;
+            font-size: 1.08rem;
+            text-align: justify;
         }
 
         .legal-section-block ul {
-            list-style-position: inside;
+            list-style: none;
+            padding-right: 2rem;
+        }
+
+        .legal-section-block ul li {
+            position: relative;
             padding-right: 1.5rem;
+        }
+
+        .legal-section-block ul li::before {
+            content: '▸';
+            position: absolute;
+            right: 0;
+            color: var(--electric-red);
+            font-weight: bold;
         }
 
         .legal-date {
             text-align: center;
-            color: var(--text-gray);
+            color: var(--text-dark-gray);
             font-style: italic;
-            margin-top: 3rem;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 0, 0, 0.2);
+            margin-top: 4rem;
+            padding-top: 3rem;
+            border-top: 2px solid var(--glass-border);
+            font-size: 1.1rem;
+        }
+
+        .legal-date strong {
+            color: var(--electric-red);
         }
 
         /* ==================== FOOTER ==================== */
         .footer {
-            background: rgba(10, 10, 10, 0.95);
-            padding: 4rem 2rem 2rem;
-            border-top: 1px solid rgba(255, 0, 0, 0.2);
+            background: linear-gradient(180deg, 
+                transparent 0%, 
+                rgba(10, 10, 10, 0.95) 100%
+            );
+            backdrop-filter: blur(20px);
+            padding: 5rem 2rem 2rem;
+            border-top: 1px solid var(--glass-border);
+            position: relative;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                var(--electric-red), 
+                transparent
+            );
         }
 
         .footer-content {
             max-width: 1400px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 3rem;
-            margin-bottom: 3rem;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 4rem;
+            margin-bottom: 4rem;
         }
 
         .footer-section h4 {
             color: var(--electric-red);
-            font-size: 1.3rem;
-            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         .footer-section p,
         .footer-section a {
             color: var(--text-gray);
-            line-height: 2;
+            line-height: 2.2;
             text-decoration: none;
             display: block;
-            transition: var(--transition);
+            transition: var(--transition-normal);
+            font-size: 1.05rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .footer-section a {
+            position: relative;
+            padding-right: 1.5rem;
+        }
+
+        .footer-section a::before {
+            content: '›';
+            position: absolute;
+            right: 0;
+            color: var(--electric-red);
+            opacity: 0;
+            transition: var(--transition-normal);
         }
 
         .footer-section a:hover {
             color: var(--electric-red);
-            padding-right: 0.5rem;
+            padding-right: 2rem;
+        }
+
+        .footer-section a:hover::before {
+            opacity: 1;
         }
 
         .footer-bottom {
             max-width: 1400px;
             margin: 0 auto;
-            padding-top: 2rem;
-            border-top: 1px solid rgba(255, 0, 0, 0.1);
+            padding-top: 3rem;
+            border-top: 1px solid var(--glass-border);
             text-align: center;
-            color: var(--text-gray);
+            color: var(--text-dark-gray);
+            font-size: 1.05rem;
+        }
+
+        .footer-bottom strong {
+            color: var(--electric-red);
         }
 
         .social-links {
             display: flex;
-            gap: 1rem;
-            margin-top: 1rem;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+            justify-content: center;
         }
 
         .social-link {
-            width: 40px;
-            height: 40px;
-            background: rgba(255, 0, 0, 0.1);
+            width: 50px;
+            height: 50px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             color: var(--electric-red);
-            transition: var(--transition);
+            transition: var(--transition-bounce);
+            font-size: 1.3rem;
+            text-decoration: none;
         }
 
         .social-link:hover {
             background: var(--electric-red);
             color: var(--text-white);
-            transform: translateY(-3px);
+            transform: translateY(-8px) rotate(360deg);
+            box-shadow: 0 10px 30px var(--shadow-red);
         }
 
         /* ==================== PAGE TRANSITIONS ==================== */
         .page {
             display: none;
-            animation: fadeIn 0.5s ease-in;
+            animation: fadeIn 0.6s ease-in;
             opacity: 0;
-            transition: opacity 0.3s ease-out;
+            transition: opacity 0.4s ease-out;
         }
 
         .page.active {
@@ -654,11 +1224,17 @@
         }
 
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { 
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to { 
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* ==================== LOADING ANIMATION ==================== */
+        /* ==================== LOADING SCREEN ==================== */
         .loading-screen {
             position: fixed;
             top: 0;
@@ -666,11 +1242,12 @@
             width: 100%;
             height: 100%;
             background: var(--pure-black);
-            z-index: 9999;
+            z-index: var(--z-loading);
             display: flex;
+            flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: opacity 0.5s ease-out;
+            transition: opacity 0.8s ease-out;
         }
 
         .loading-screen.hidden {
@@ -679,12 +1256,13 @@
         }
 
         .loader {
-            width: 80px;
-            height: 80px;
-            border: 4px solid rgba(255, 0, 0, 0.1);
-            border-top: 4px solid var(--electric-red);
+            width: 100px;
+            height: 100px;
+            border: 5px solid rgba(255, 0, 0, 0.1);
+            border-top: 5px solid var(--electric-red);
             border-radius: 50%;
-            animation: spin 1s linear infinite;
+            animation: spin 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+            box-shadow: 0 0 40px var(--shadow-red);
         }
 
         @keyframes spin {
@@ -692,23 +1270,38 @@
             100% { transform: rotate(360deg); }
         }
 
-        /* ==================== SCROLL TO TOP BUTTON ==================== */
+        .loading-text {
+            margin-top: 2rem;
+            font-size: 1.5rem;
+            color: var(--electric-red);
+            font-weight: 700;
+            letter-spacing: 3px;
+            animation: loadingPulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes loadingPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* ==================== SCROLL TO TOP ==================== */
         .scroll-top {
             position: fixed;
             bottom: 30px;
             left: 30px;
-            width: 50px;
-            height: 50px;
-            background: var(--electric-red);
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, var(--electric-red), var(--red-dark));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
             cursor: pointer;
             opacity: 0;
-            transition: var(--transition);
+            transition: var(--transition-normal);
             z-index: 999;
-            box-shadow: 0 5px 20px var(--shadow-red);
+            box-shadow: 0 8px 25px var(--shadow-red);
+            border: 2px solid rgba(255, 0, 0, 0.3);
         }
 
         .scroll-top.visible {
@@ -716,26 +1309,1438 @@
         }
 
         .scroll-top:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 8px 30px var(--shadow-red);
+            transform: translateY(-8px) scale(1.1);
+            box-shadow: 0 15px 40px var(--shadow-red-strong);
         }
 
         .scroll-top::before {
             content: '↑';
             color: var(--text-white);
-            font-size: 1.5rem;
+            font-size: 2rem;
             font-weight: bold;
         }
 
-        /* ==================== NOTIFICATION SYSTEM ==================== */
-        #notificationContainer {
-            position: fixed;
-            top: 90px;
-            left: 20px;
-            z-index: 99999;
-            pointer-events: none;
-            direction: rtl;
+        /* ==================== RESPONSIVE DESIGN ==================== */
+        @media (max-width: 1024px) {
+            .hero-title { font-size: 3.5rem; }
+            .section-title { font-size: 2.8rem; }
+            .about-grid { grid-template-columns: 1fr; gap: 3rem; }
+            .services-grid { grid-template-columns: 1fr; }
+            .hero-stats { flex-direction: column; gap: 2rem; }
         }
 
-        .notification-toast {
-            backgrou
+        @media (max-width: 768px) {
+            .nav-menu {
+                position: fixed;
+                right: -100%;
+                top: 85px;
+                flex-direction: column;
+                background: rgba(0, 0, 0, 0.98);
+                width: 100%;
+                text-align: center;
+                padding: 3rem 0;
+                transition: var(--transition-normal);
+                border-top: 1px solid var(--glass-border);
+                gap: 2rem;
+                box-shadow: 0 10px 50px rgba(0, 0, 0, 0.8);
+            }
+
+            .nav-menu.active {
+                right: 0;
+            }
+
+            .mobile-toggle {
+                display: flex;
+            }
+
+            .hero-title { font-size: 2.8rem; }
+            .hero-subtitle { font-size: 1.3rem; }
+            .section-title { font-size: 2.2rem; }
+            .section-subtitle { font-size: 1.1rem; }
+            
+            .features-grid,
+            .services-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                width: 100%;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 350px;
+            }
+
+            .about-mission {
+                padding: 2.5rem 1.5rem;
+            }
+
+            .legal-content {
+                padding: 2.5rem 1.5rem;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-title { font-size: 2.2rem; }
+            .logo-text { font-size: 1.6rem; }
+            .wasel-shield { width: 45px; height: 45px; }
+            .nav-container { padding: 0 1rem; }
+            .section-title { font-size: 1.9rem; }
+            .service-card,
+            .feature-card { padding: 2rem 1.5rem; }
+            .hero-section { padding: 8rem 1rem 4rem; }
+        }
+    </style>
+</head>
+<body>
+        <!-- Loading Screen -->
+    <div class="loading-screen" id="loadingScreen">
+        <div class="loader"></div>
+        <div class="loading-text">WASEL</div>
+    </div>
+
+    <!-- Particle Canvas Background -->
+    <canvas id="particleCanvas"></canvas>
+
+    <!-- Scroll to Top Button -->
+    <div class="scroll-top" id="scrollTop"></div>
+
+    <!-- Main Container -->
+    <div class="main-container">
+        <!-- Navigation -->
+        <nav class="navbar" id="navbar">
+            <div class="nav-container">
+                <div class="logo-container" onclick="navigateTo('home')">
+                    <div class="wasel-shield">
+                        <svg class="shield-svg" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="shieldGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#FF0000;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#cc0000;stop-opacity:1" />
+                                </linearGradient>
+                                <filter id="glow">
+                                    <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                                    <feMerge>
+                                        <feMergeNode in="coloredBlur"/>
+                                        <feMergeNode in="SourceGraphic"/>
+                                    </feMerge>
+                                </filter>
+                            </defs>
+                            <path d="M50 10 L90 30 L90 60 Q90 80 50 95 Q10 80 10 60 L10 30 Z" 
+                                  fill="none" 
+                                  stroke="url(#shieldGradient)" 
+                                  stroke-width="3"
+                                  filter="url(#glow)"/>
+                            <path d="M50 25 L75 40 L75 60 Q75 72 50 82 Q25 72 25 60 L25 40 Z" 
+                                  fill="url(#shieldGradient)" 
+                                  opacity="0.4"/>
+                            <text x="50" y="62" 
+                                  font-size="32" 
+                                  font-weight="bold" 
+                                  text-anchor="middle" 
+                                  fill="#FFFFFF"
+                                  font-family="Arial Black">W</text>
+                            <circle cx="50" cy="35" r="3" fill="#FF0000" opacity="0.8">
+                                <animate attributeName="opacity" values="0.3;1;0.3" dur="2s" repeatCount="indefinite"/>
+                            </circle>
+                        </svg>
+                    </div>
+                    <span class="logo-text">واصل</span>
+                </div>
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="#home" class="nav-link active" data-page="home">الرئيسية</a></li>
+                    <li><a href="#identity" class="nav-link" data-page="identity">خزنة الهوية</a></li>
+                    <li><a href="#email" class="nav-link" data-page="email">البريد الأبدي</a></li>
+                    <li><a href="#about" class="nav-link" data-page="about">من نحن</a></li>
+                    <li><a href="#legal" class="nav-link" data-page="legal">الشروط القانونية</a></li>
+                </ul>
+                <div class="mobile-toggle" id="mobileToggle">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- PAGE 1: HOME -->
+        <div class="page active" id="homePage">
+            <!-- Hero Section -->
+            <section class="hero-section">
+                <div class="hero-content">
+                    <h1 class="hero-title">حماية خصوصيتك الرقمية</h1>
+                    <p class="hero-subtitle">منصة متكاملة لحماية هويتك وبريدك الإلكتروني مدى الحياة بتشفير عسكري AES-256</p>
+                    
+                    <div class="hero-stats">
+                        <div class="hero-stat">
+                            <span class="hero-stat-number">50K+</span>
+                            <span class="hero-stat-label">مستخدم آمن</span>
+                        </div>
+                        <div class="hero-stat">
+                            <span class="hero-stat-number">99.9%</span>
+                            <span class="hero-stat-label">وقت التشغيل</span>
+                        </div>
+                        <div class="hero-stat">
+                            <span class="hero-stat-number">24/7</span>
+                            <span class="hero-stat-label">دعم فني</span>
+                        </div>
+                    </div>
+
+                    <div class="cta-buttons">
+                        <button class="btn btn-primary" onclick="navigateTo('identity')">
+                            <span>🔐</span>
+                            ابدأ الآن
+                        </button>
+                        <button class="btn btn-secondary" onclick="navigateTo('about')">
+                            <span>📖</span>
+                            اعرف المزيد
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Threat Radar Visual -->
+            <div class="threat-radar">
+                <div class="radar-line"></div>
+                <div class="radar-dot"></div>
+                <div class="radar-dot"></div>
+                <div class="radar-dot"></div>
+                <div class="radar-dot"></div>
+            </div>
+
+            <!-- Features Section -->
+            <section class="features-section">
+                <div class="container">
+                    <h2 class="section-title">لماذا واصل؟</h2>
+                    <p class="section-subtitle">نوفر لك الحماية الكاملة لبياناتك الشخصية بأعلى معايير الأمان العالمية</p>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🔒</div>
+                            <h3 class="feature-title">أمان متقدم</h3>
+                            <p class="feature-description">تشفير AES-256 من الطراز العسكري يحمي بياناتك من أي اختراق أو تسريب. نفس المعيار المستخدم في البنوك المركزية والمؤسسات الحكومية العالمية.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">⚡</div>
+                            <h3 class="feature-title">سرعة فائقة</h3>
+                            <p class="feature-description">بنية تحتية عالمية مع خوادم CDN متعددة تضمن أداء عالي وسرعة استجابة فورية أقل من 100ms في جميع أنحاء العالم.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🌍</div>
+                            <h3 class="feature-title">متاح عالمياً</h3>
+                            <p class="feature-description">خدماتنا متاحة على مدار الساعة طوال أيام الأسبوع من أي مكان في العالم مع دعم كامل للغة العربية والإنجليزية.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🛡️</div>
+                            <h3 class="feature-title">خصوصية تامة</h3>
+                            <p class="feature-description">سياسة صارمة للخصوصية: لا نتتبع نشاطك، لا نبيع بياناتك، لا نشاركها مع أي طرف ثالث. بياناتك ملكك وحدك.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">💎</div>
+                            <h3 class="feature-title">جودة عالية</h3>
+                            <p class="feature-description">خدمات احترافية مصممة بأعلى معايير الجودة العالمية مع واجهات استخدام عصرية وسهلة ومصممة خصيصاً للمستخدم العربي.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔄</div>
+                            <h3 class="feature-title">نسخ احتياطي تلقائي</h3>
+                            <p class="feature-description">بياناتك محفوظة بنسخ احتياطية آمنة ومشفرة يومياً في مراكز بيانات متعددة حول العالم لضمان عدم فقدانها أبداً.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Services Section -->
+            <section class="services-section">
+                <div class="container">
+                    <h2 class="section-title">خدماتنا المتكاملة</h2>
+                    <p class="section-subtitle">حلول شاملة ومتقدمة لحماية هويتك الرقمية وخصوصيتك على الإنترنت</p>
+                    <div class="services-grid">
+                        <div class="service-card">
+                            <div class="service-header">
+                                <div class="service-icon">🔐</div>
+                                <h3 class="service-title">خزنة الهوية الرقمية</h3>
+                            </div>
+                            <p class="service-description">احفظ جميع هوياتك الرقمية، كلمات المرور، البطاقات، والمستندات الحساسة في مكان واحد محمي بتشفير متعدد الطبقات لا يمكن اختراقه.</p>
+                            <ul class="service-features">
+                                <li>تشفير متعدد الطبقات بمعيار AES-256 + RSA-4096</li>
+                                <li>مصادقة ثنائية (2FA) ومصادقة بيومترية</li>
+                                <li>إدارة ذكية لكلمات المرور مع مولد عشوائي آمن</li>
+                                <li>مزامنة تلقائية مشفرة عبر جميع أجهزتك</li>
+                                <li>نسخ احتياطي آمن مع استرجاع فوري</li>
+                                <li>مشاركة آمنة للبيانات مع التحكم الكامل</li>
+                                <li>تنبيهات أمنية فورية عند أي نشاط مشبوه</li>
+                            </ul>
+                        </div>
+                        <div class="service-card">
+                            <div class="service-header">
+                                <div class="service-icon">📧</div>
+                                <h3 class="service-title">البريد الإلكتروني الأبدي</h3>
+                            </div>
+                            <p class="service-description">بريد إلكتروني مشفر يبقى معك مدى الحياة مع ضمان عدم الحذف أو الإيقاف. ملكية دائمة لعنوان بريدك مع حماية كاملة من التجسس والاختراق.</p>
+                            <ul class="service-features">
+                                <li>تخزين غير محدود للرسائل والمرفقات</li>
+                                <li>تشفير شامل من طرف إلى طرف (E2EE)</li>
+                                <li>حماية متقدمة من الرسائل المزعجة والتصيد</li>
+                                <li>نطاق مخصص @wasel.secure لهويتك الرقمية</li>
+                                <li>دعم فني متواصل باللغة العربية 24/7</li>
+                                <li>واجهة عصرية سهلة الاستخدام على كل الأجهزة</li>
+                                <li>نظام مفاتيح سرية فريد لا يمكن استرجاعه</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PAGE 2: IDENTITY VAULT -->
+        <div class="page" id="identityPage">
+            <section class="hero-section">
+                <div class="hero-content">
+                    <h1 class="hero-title">خزنة الهوية الرقمية</h1>
+                    <p class="hero-subtitle">احفظ جميع هوياتك وبياناتك الحساسة في مكان واحد محمي بأقوى معايير التشفير العالمية</p>
+                    <div class="cta-buttons">
+                        <button class="btn btn-primary" onclick="openIdentityVault()">
+                            <span>🔓</span>
+                            افتح الخزنة
+                        </button>
+                        <button class="btn btn-secondary" onclick="createNewIdentity()">
+                            <span>➕</span>
+                            إنشاء هوية جديدة
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="services-section">
+                <div class="container">
+                    <h2 class="section-title">مميزات خزنة الهوية</h2>
+                    <p class="section-subtitle">تقنيات أمنية متطورة تحمي بياناتك بأعلى مستويات الحماية</p>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">🔐</div>
+                            <h3 class="feature-title">تشفير AES-256</h3>
+                            <p class="feature-description">أقوى معايير التشفير المستخدمة في البنوك المركزية والمؤسسات الحكومية. يستغرق فك التشفير مليارات السنين حتى بأقوى الحواسيب الفائقة.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">👤</div>
+                            <h3 class="feature-title">هويات متعددة</h3>
+                            <p class="feature-description">أنشئ وأدر عدد غير محدود من الهويات الرقمية المنفصلة. كل هوية مشفرة بشكل مستقل مع مفتاح تشفير فريد.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔑</div>
+                            <h3 class="feature-title">مدير كلمات المرور</h3>
+                            <p class="feature-description">احفظ وأنشئ كلمات مرور قوية ومعقدة لجميع حساباتك. مولد عشوائي آمن ينشئ كلمات مرور بطول 32-128 حرف.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📱</div>
+                            <h3 class="feature-title">مزامنة تلقائية</h3>
+                            <p class="feature-description">احصل على بياناتك من أي جهاز في أي وقت. المزامنة تتم عبر قنوات مشفرة بالكامل مع التحقق من الهوية.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🚨</div>
+                            <h3 class="feature-title">تنبيهات أمنية</h3>
+                            <p class="feature-description">احصل على تنبيهات فورية عند أي محاولة وصول غير معتادة أو نشاط مشبوه. نظام ذكي يتعلم أنماط استخدامك.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">💾</div>
+                            <h3 class="feature-title">نسخ احتياطي مشفر</h3>
+                            <p class="feature-description">نسخ احتياطية يومية تلقائية مشفرة لجميع بياناتك في 3 مراكز بيانات منفصلة جغرافياً. استرجاع فوري في ثوانٍ.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PAGE 3: ETERNAL MAIL -->
+        <div class="page" id="emailPage">
+            <section class="hero-section">
+                <div class="hero-content">
+                    <h1 class="hero-title">البريد الإلكتروني الأبدي</h1>
+                    <p class="hero-subtitle">بريد إلكتروني يبقى معك مدى الحياة بأمان وخصوصية تامة مع تشفير شامل</p>
+                    <div class="cta-buttons">
+                        <button class="btn btn-primary" onclick="createEmail()">
+                            <span>✉️</span>
+                            أنشئ بريدك الآن
+                        </button>
+                        <button class="btn btn-secondary" onclick="loginEmail()">
+                            <span>🔑</span>
+                            تسجيل الدخول
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            <section class="services-section">
+                <div class="container">
+                    <h2 class="section-title">لماذا البريد الأبدي؟</h2>
+                    <p class="section-subtitle">ميزات فريدة تجعل بريدك الإلكتروني آمناً ودائماً</p>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">♾️</div>
+                            <h3 class="feature-title">ملكية مدى الحياة</h3>
+                            <p class="feature-description">عنوان بريدك يبقى ملكك للأبد. لا يمكن حذفه أو إلغائه أو استرجاعه من قبل أي جهة. ملكية دائمة مضمونة قانونياً.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🔒</div>
+                            <h3 class="feature-title">تشفير من طرف لطرف</h3>
+                            <p class="feature-description">جميع رسائلك مشفرة بتشفير E2EE. حتى نحن لا نستطيع قراءة رسائلك. فقط أنت والمستقبل لديكم المفاتيح.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">📦</div>
+                            <h3 class="feature-title">تخزين غير محدود</h3>
+                            <p class="feature-description">لا قيود على حجم التخزين أو عدد الرسائل أو حجم المرفقات. احتفظ برسائلك إلى الأبد دون قلق من امتلاء المساحة.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🛡️</div>
+                            <h3 class="feature-title">حماية متقدمة</h3>
+                            <p class="feature-description">فلاتر ذكية مدعومة بالذكاء الاصطناعي تحميك من الرسائل المزعجة، التصيد الاحتيالي، والبرمجيات الخبيثة بدقة 99.9%.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">🌐</div>
+                            <h3 class="feature-title">نطاق مخصص</h3>
+                            <p class="feature-description">استخدم نطاقك الخاص (@yourname.com) أو استخدم نطاق واصل الآمن (@wasel.secure) مع إمكانية التبديل في أي وقت.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">⚡</div>
+                            <h3 class="feature-title">أداء فائق السرعة</h3>
+                            <p class="feature-description">إرسال واستقبال فوري للرسائل بأي حجم. خوادم عالمية موزعة تضمن سرعة تحميل أقل من ثانية واحدة.</p>
+                        </div>
+                    </div>
+
+                    <div class="about-mission" style="margin-top: 5rem;">
+                        <h3>🔑 نظام المفتاح السري الفريد</h3>
+                        <p>عند إنشاء بريدك الأبدي، سيتم توليد <strong>مفتاح سري فريد بطول 64 حرف</strong> باستخدام خوارزميات تشفير عشوائية آمنة. هذا المفتاح هو الطريقة الوحيدة للوصول إلى بريدك ولا يمكن استرجاعه أبداً.</p>
+                        <p style="margin-top: 1rem;"><strong style="color: #FFA500;">⚠️ تحذير مهم:</strong> احفظ المفتاح السري في مكان آمن. إذا فقدته، لن تتمكن من الوصول إلى بريدك مرة أخرى. نوصي بحفظه في خزنة الهوية أو كتابته على ورقة وحفظها في مكان آمن.</p>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PAGE 4: ABOUT US -->
+        <div class="page" id="aboutPage">
+            <section class="about-section">
+                <div class="about-content">
+                    <h2 class="section-title">من نحن</h2>
+                    <p class="section-subtitle">رواد حماية الخصوصية الرقمية في الوطن العربي والعالم</p>
+
+                    <div class="about-grid">
+                        <div class="about-text">
+                            <div>
+                                <h3>🎯 رؤيتنا</h3>
+                                <p>
+                                    نؤمن في <strong>واصل</strong> بأن الخصوصية الرقمية حق أساسي لكل إنسان وليس امتيازاً. في عصر يتم فيه جمع وبيع البيانات الشخصية بشكل يومي، نسعى لبناء عالم رقمي آمن حيث يمتلك كل فرد السيطرة الكاملة على بياناته الشخصية وهويته الرقمية. رؤيتنا هي أن نكون المنصة الأولى عربياً وعالمياً في مجال حماية الخصوصية الرقمية، ونقدم حلولاً مبتكرة تجمع بين أعلى معايير الأمان وأفضل تجربة استخدام.
+                                </p>
+                                <p>
+                                    نعمل على توفير بيئة رقمية آمنة تماماً حيث لا يتم تتبعك، ولا يتم مراقبة نشاطك، ولا يتم بيع بياناتك. كل ما تفعله على منصتنا محمي بأقوى تقنيات التشفير العالمية ويبقى سراً بينك وبين من تختار مشاركته معه فقط.
+                                </p>
+                            </div>
+                            <div>
+                                <h3>📖 قصتنا</h3>
+                                <p>
+                                    تأسست <strong>واصل</strong> في عام 2024 على يد مجموعة من خبراء الأمن السيبراني والمطورين المتخصصين الذين شهدوا تزايد التهديدات الرقمية وانتهاكات الخصوصية بشكل غير مسبوق. بدأت الفكرة عندما تعرض أحد مؤسسينا لاختراق حسابه البريدي وسرقة هويته الرقمية، مما أدى إلى خسائر مادية ومعنوية كبيرة.
+                                </p>
+                                <p>
+                                    من هذه التجربة المؤلمة، ولدت فكرة إنشاء منصة متكاملة تحمي الهوية الرقمية بشكل شامل. بدأنا رحلتنا بهدف واحد واضح: <strong>توفير حماية رقمية شاملة ومتقدمة للأفراد والمؤسسات في العالم العربي</strong>. استثمرنا آلاف الساعات في البحث والتطوير لإنشاء نظام أمني لا يمكن اختراقه.
+                                </p>
+                                <p>
+                                    اليوم، نفخر بخدمة أكثر من <strong>50,000 مستخدم نشط</strong> يثقون بنا لحماية أهم ما يملكون - هويتهم الرقمية وخصوصيتهم على الإنترنت. نواصل الابتكار يومياً لنبقى في طليعة تقنيات الأمان.
+                                </p>
+                            </div>
+                        </div>
+
+                        <div class="about-stats">
+                            <div class="stat-card">
+                                <div class="stat-number">50K+</div>
+                                <div class="stat-label">مستخدم نشط</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">99.9%</div>
+                                <div class="stat-label">وقت التشغيل</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">256-bit</div>
+                                <div class="stat-label">تشفير AES</div>
+                            </div>
+                            <div class="stat-card">
+                                <div class="stat-number">24/7</div>
+                                <div class="stat-label">دعم فني</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="about-mission">
+                        <h3>🛡️ مهمتنا</h3>
+                        <p>
+                            مهمتنا في <strong>واصل</strong> هي توفير حلول أمنية متقدمة ومبتكرة تحمي الهوية الرقمية والبيانات الشخصية للأفراد والمؤسسات في جميع أنحاء العالم. نعمل على تطوير تقنيات تشفير متطورة وواجهات استخدام سهلة وعصرية، مع الالتزام الكامل بأعلى معايير الخصوصية العالمية مثل GDPR وISO 27001.
+                        </p>
+                        <p style="margin-top: 1.5rem;">
+                            نؤمن بأن الأمان الرقمي يجب أن يكون متاحاً للجميع وليس حكراً على التقنيين. لهذا نقدم خدمات عالية الجودة بأسعار عادلة ومنصفة، مع دعم فني متواصل باللغة العربية على مدار الساعة. هدفنا هو جعل الإنترنت مكاناً أكثر أماناً للجميع.
+                        </p>
+                    </div>
+
+                    <div class="about-text" style="margin-top: 4rem;">
+                        <div>
+                            <h3>💡 قيمنا الأساسية</h3>
+                            <p>
+                                <strong style="color: #FF0000;">🔒 الخصوصية أولاً:</strong> نحن لا نتتبع نشاطك تحت أي ظرف، لا نبيع بياناتك أبداً، ولا نشاركها مع أي طرف ثالث مهما كانت الأسباب. خصوصيتك خط أحمر لا نتجاوزه ولا نساوم عليه. حتى نحن لا نستطيع الوصول إلى بياناتك المشفرة.
+                            </p>
+                            <p>
+                                <strong style="color: #FF0000;">📊 الشفافية المطلقة:</strong> نؤمن بالشفافية الكاملة في عملياتنا وسياساتنا. نوضح بدقة كيف نحمي بياناتك، ما نجمعه (الحد الأدنى فقط)، وكيف نستخدمه. لا توجد بنود سرية أو ممارسات خفية. كل شيء واضح ومكتوب.
+                            </p>
+                            <p>
+                                <strong style="color: #FF0000;">🚀 الابتكار المستمر:</strong> نستثمر بكثافة في البحث والتطوير لنقدم أحدث تقنيات الحماية والأمان الرقمي. فريقنا من الباحثين يعمل على تطوير خوارزميات تشفير جديدة ومتقدمة بشكل مستمر.
+                            </p>
+                            <p>
+                                <strong style="color: #FF0000;">⭐ التميز في الخدمة:</strong> رضا عملائنا هو المقياس الحقيقي لنجاحنا. نعمل ليلاً ونهاراً على تقديم أفضل تجربة استخدام ودعم فني احترافي وسريع. نستمع لملاحظاتكم ونطور خدماتنا بناءً عليها.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3>🌍 التزامنا بالمجتمع</h3>
+                            <p>
+                                نؤمن بمسؤوليتنا تجاه المجتمع الرقمي العربي والعالمي. لذلك نقدم <strong>برامج تعليمية مجانية</strong> حول الأمن السيبراني والخصوصية الرقمية عبر منصاتنا التعليمية. نعمل مع الجامعات والمؤسسات التعليمية والمنظمات غير الربحية لنشر الوعي بأهمية حماية البيانات الشخصية والممارسات الآمنة على الإنترنت.
+                            </p>
+                            <p>
+                                كما نساهم في تطوير معايير الأمن الرقمي في المنطقة العربية من خلال المشاركة الفعالة في المؤتمرات التقنية الدولية، ونشر الأبحاث العلمية، والتعاون مع المنظمات العالمية المتخصصة في الأمن السيبراني.
+                            </p>
+                            <p>
+                                نوفر أيضاً <strong>خصومات خاصة للطلاب والمعلمين</strong> وخطط مجانية للمنظمات غير الربحية التي تعمل على نشر الوعي الرقمي. هدفنا هو جعل الأمان الرقمي متاحاً للجميع بغض النظر عن قدرتهم المادية.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3>👥 فريق العمل</h3>
+                            <p>
+                                يتكون فريقنا من <strong>نخبة من المتخصصين</strong> في الأمن السيبراني، وهندسة البرمجيات، والتشفير، وتصميم تجربة المستخدم من مختلف أنحاء العالم. كل عضو في فريق واصل يحمل شغفاً حقيقياً بحماية الخصوصية الرقمية وخبرة عميقة تمتد لأكثر من 10 سنوات في مجاله.
+                            </p>
+                            <p>
+                                نضم خبراء حاصلين على شهادات عالمية مثل CISSP، CEH، OSCP، وشهادات متخصصة في التشفير والأمن السحابي. نعمل معاً بروح الفريق الواحد لتحقيق هدفنا المشترك: <strong>جعل الإنترنت مكاناً أكثر أماناً للجميع</strong>.
+                            </p>
+                            <p>
+                                فريقنا متعدد الجنسيات والثقافات، مما يمنحنا رؤية شاملة ومتنوعة لاحتياجات المستخدمين في مختلف المناطق. لكننا نشترك جميعاً في قيمة واحدة: <strong>الخصوصية حق وليس امتياز</strong>.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3>🏆 شهادات ومعايير الجودة</h3>
+                            <p>
+                                نلتزم في <strong>واصل</strong> بأعلى معايير الأمان والجودة العالمية. خدماتنا <strong>متوافقة بالكامل</strong> مع:
+                            </p>
+                            <ul style="margin-top: 1rem; color: var(--text-gray); line-height: 2;">
+                                <li><strong>GDPR</strong> - اللائحة العامة لحماية البيانات الأوروبية</li>
+                                <li><strong>ISO 27001</strong> - معيار إدارة أمن المعلومات الدولي</li>
+                                <li><strong>SOC 2 Type II</strong> - تدقيق الضوابط الأمنية</li>
+                                <li><strong>NIST Cybersecurity Framework</strong> - إطار الأمن السيبراني الأمريكي</li>
+                                <li><strong>PCI DSS</strong> - معيار أمان بيانات البطاقات</li>
+                            </ul>
+                            <p style="margin-top: 1.5rem;">
+                                نخضع لـ<strong>مراجعات أمنية دورية</strong> من جهات خارجية مستقلة ومعتمدة عالمياً لضمان سلامة وأمان أنظمتنا. نجري اختبارات اختراق شهرية ونوظف باحثي أمن مستقلين عبر برنامج Bug Bounty للكشف عن أي ثغرات محتملة.
+                            </p>
+                            <p>
+                                كما نستخدم أفضل الممارسات في مجال <strong>التشفير</strong> المعترف بها من قبل المعاهد العالمية مثل NIST وIETF. جميع بروتوكولات التشفير لدينا مفتوحة المصدر وخضعت لمراجعات مستقلة من خبراء التشفير حول العالم.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3>📞 اتصل بنا</h3>
+                            <p>
+                                نحن دائماً سعداء بالاستماع إليك. سواء كان لديك سؤال، اقتراح، أو تحتاج إلى مساعدة، فريقنا جاهز للرد عليك على مدار الساعة.
+                            </p>
+                            <p style="margin-top: 1rem;">
+                                <strong style="color: #FF0000;">📧 البريد الإلكتروني:</strong><br>
+                                <a href="mailto:adamahmedadam184@gmail.com" style="color: #FF0000; text-decoration: none;">adamahmedadam184@gmail.com</a>
+                            </p>
+                            <p>
+                                <strong style="color: #FF0000;">💬 الدعم الفني:</strong><br>
+                                متوفر 24/7 باللغة العربية والإنجليزية
+                            </p>
+                            <p>
+                                <strong style="color: #FF0000;">⏱️ وقت الاستجابة:</strong><br>
+                                نرد على جميع الاستفسارات خلال 24 ساعة كحد أقصى، وغالباً خلال ساعات قليلة.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- PAGE 5: LEGAL -->
+        <div class="page" id="legalPage">
+            <section class="legal-section">
+                <div class="container">
+                    <h2 class="section-title">الشروط والأحكام القانونية</h2>
+                    <p class="section-subtitle">يرجى قراءة هذه الشروط بعناية قبل استخدام خدماتنا - آخر تحديث: يناير 2025</p>
+
+                    <div class="legal-content">
+                        <div class="legal-section-block">
+                            <h3>1. مقدمة وقبول الشروط</h3>
+                            <p>
+                                مرحباً بكم في منصة <strong>واصل</strong> للخصوصية الرقمية. من خلال الوصول إلى موقعنا الإلكتروني أو استخدام أي من خدماتنا، فإنك توافق صراحةً على الالتزام بهذه الشروط والأحكام وجميع القوانين واللوائح المعمول بها في بلدك وعلى المستوى الدولي. إذا كنت لا توافق على أي من هذه الشروط، يُرجى عدم استخدام خدماتنا فوراً.
+                            </p>
+                            <p>
+                                نحتفظ بالحق الكامل في تعديل أو تحديث هذه الشروط في أي وقت دون إشعار مسبق. ومع ذلك، سيتم إخطارك بأي تغييرات جوهرية عبر البريد الإلكتروني المسجل لديك أو من خلال إشعار بارز على الموقع. استمرارك في استخدام الخدمات بعد نشر التعديلات يعني قبولك التام والنهائي لتلك التغييرات. ننصحك بمراجعة هذه الصفحة بشكل دوري للبقاء على اطلاع بأي تحديثات.
+                            </p>
+                        </div>
+
+                        <div class="legal-section-block">
+                            <h3>2. سياسة الخصوصية وحماية البيانات</h3>
+                            <h4>2.1 التزامنا المطلق بالخصوصية</h4>
+                            <p>
+                                في <strong>واصل</strong>، الخصوصية ليست مجرد وعد - إنها التزام قانوني وأخلاقي راسخ. نحن <strong>لا نقوم أبداً</strong> بجمع، تتبع، تخزين، مشاركة، أو بيع بياناتك الشخصية مع أي طرف ثالث تحت أي ظرف من الظروف، حتى لو طُلب منا ذلك قانونياً. جميع البيانات المخزنة على منصتنا محمية بتشفير <strong>AES-256</strong> العسكري، وهو نفس المعيار المستخدم من قبل البنوك المركزية والوكالات الحكومية الأمريكية والأوروبية.
+                            </p>
+                            <p>
+                                تقنية <strong>التشفير من طرف إلى طرف (E2EE)</strong> تعني أن بياناتك مشفرة على جهازك قبل إرسالها إلى خوادمنا. حتى نحن - فريق واصل - لا نستطيع الوصول إلى محتوى بياناتك المشفرة. فقط أنت تملك المفتاح الخاص لفك التشفير.
+                            </p>
+
+                            <h4>2.2 البيانات التي نجمعها (الحد الأدنى المطلق)</h4>
+                            <p>
+                                نحن نؤمن بمبدأ <strong>الحد الأدنى من البيانات</strong>. نجمع فقط المعلومات الضرورية بشكل مطلق لتقديم خدماتنا:
+                            </p>
+                            <ul>
+                                <li><strong>عنوان البريد الإلكتروني:</strong> فقط للمصادقة والاتصالات الأمنية الحرجة</li>
+                                <li><strong>معلومات الحساب الأساسية:</strong> اسم المستخدم وتاريخ الإنشاء</li>
+                                <li><strong>البيانات المشفرة:</strong> أي بيانات تختار تخزينها في خزنة الهوية (مشفرة بالكامل بمفتاحك الخاص)</li>
+                                <li><strong>سجلات تقنية أمنية:</strong> عناوين IP وأوقات الوصول فقط لأغراض الأمان ومنع الاختراقات (يتم حذفها بعد 30 يوم)</li>
+                            </ul>
+                            <p>
+                                نحن <strong>لا نجمع أبداً:</strong> موقعك الجغرافي الدقيق، تفاصيل جهازك، سجل التصفح، بصمات الأصابع الرقمية، أو أي معلومات شخصية غير ضرورية.
+                            </p>
+
+                            <h4>2.3 كيف نحمي بياناتك (البنية الأمنية المتقدمة)</h4>
+                            <ul>
+                                <li><strong>تشفير AES-256-GCM:</strong> أقوى معايير التشفير المتماثل المعتمد عالمياً</li>
+                                <li><strong>تشفير RSA-4096:</strong> لتبادل المفاتيح وحماية الاتصالات</li>
+                                <li><strong>Perfect Forward Secrecy (PFS):</strong> مفتاح جديد لكل جلسة، يضمن عدم فك تشفير الجلسات السابقة حتى لو تم اختراق مفتاح لاحق</li>
+                                <li><strong>Zero-Knowledge Architecture:</strong> نحن لا نعرف كلمات مرورك أو محتوى بياناتك</li>
+                                <li><strong>خوادم آمنة:</strong> في مراكز بيانات معتمدة ISO 27001 و SOC 2</li>
+                                <li><strong>حماية DDoS:</strong> حماية متقدمة ضد هجمات الحرمان من الخدمة</li>
+                                <li><strong>مراجعات أمنية:</strong> اختبارات اختراق شهرية من جهات خارجية مستقلة</li>
+                                <li><strong>نسخ احتياطية مشفرة:</strong> 3 نسخ في مواقع جغرافية منفصلة</li>
+                                <li><strong>فريق أمن متخصص:</strong> يعمل 24/7 على مراقبة ومنع التهديدات</li>
+                            </ul>
+
+                            <h4>2.4 حقوقك في بياناتك</h4>
+                            <p>
+                                وفقاً للـ GDPR ولقوانين حماية البيانات العالمية، لديك الحقوق التالية:
+                            </p>
+                            <ul>
+                                <li><strong>الحق في الوصول:</strong> طلب نسخة من جميع بياناتك المخزنة</li>
+                                <li><strong>الحق في التصحيح:</strong> تعديل أي بيانات غير صحيحة</li>
+                                <li><strong>الحق في المحو:</strong> حذف حسابك وجميع بياناتك نهائياً (خلال 48 ساعة)</li>
+                                <li><strong>الحق في النقل:</strong> تصدير بياناتك بصيغة قياسية</li>
+                                <li><strong>الحق في الاعتراض:</strong> رفض أي معالجة لبياناتك</li>
+                            </ul>
+                        </div>
+
+                        <div class="legal-section-block">
+                            <h3>3. التسجيل والحساب</h3>
+                            <h4>3.1 متطلبات التسجيل</h4>
+                            <p>
+                                للاستفادة من خدماتنا، يجب عليك إنشاء حساب وتقديم معلومات دقيقة وكاملة وحديثة. يجب أن يكون عمرك <strong>18 عاماً على الأقل</strong> أو أن تحصل على إذن كتابي من ولي أمرك القانوني. أنت مسؤول بشكل كامل عن الحفاظ على سرية كلمة المرور الخاصة بك، المفتاح السري، وعن جميع الأنشطة التي تتم من خلال حسابك.
+                            </p>
+                            <p>
+                                <strong>تحذير أمني:</strong> لا تشارك كلمة مرورك أو مفتاحك السري مع أي شخص، حتى مع فريق الدعم الفني لدينا. لن نطلب منك أبداً مشاركة هذه المعلومات.
+                            </p>
+
+                            <h4>3.2 أمان الحساب</h4>
+                            <p>
+                                يجب عليك إخطارنا فوراً على <a href="mailto:adamahmedadam184@gmail.com" style="color: #FF0000;">adamahmedadam184@gmail.com</a> بأي استخدام غير مصرح به لحسابك أو أي خرق أمني تشك فيه. نحن لسنا مسؤولين عن أي خسارة مادية أو معنوية تنتج عن استخدام غير مصرح به لحسابك ناتج عن إهمالك في حماية بيانات الدخول.
+                            </p>
+                            <p>
+                                نوصي بشدة بـ:
+                            </p>
+                            <ul>
+                                <li>تفعيل <strong>المصادقة الثنائية (2FA)</strong> فوراً</li>
+                                <li>استخدام كلمة مرور قوية وفريدة (16+ حرف، أحرف كبيرة وصغيرة، أرقام، رموز)</li>
+                                <li>عدم استخدام نفس كلمة المرور لخدمات أخرى</li>
+                                <li>حفظ المفتاح السري في مكان آمن خارج الإنترنت</li>
+                            </ul>
+                        </div>
+
+                        <div class="legal-section-block">
+                            <h3>4. الاستخدام المقبول</h3>
+                            <h4>4.1 الاستخدام المسموح</h4>
+                            <p>
+                                يمكنك استخدام خدماتنا فقط للأغراض القانونية المشروعة. هذا يشمل: تخزين وإدارة هوياتك الرقمية، حماية خصوصيتك الشخصية، استخدام البريد الإلكتروني للاتصالات الشخصية أو التجارية المشروعة، وأي استخدام آخر يتوافق مع القوانين المحلية والدولية.
+                            </p>
+
+                            <h4>4.2 الاستخدام المحظور صراحةً</h4>
+                            <p>
+                                يُحظر تماماً استخدام خدماتنا في أي من الأنشطة التالية:
+                            </p>
+                            <ul>
+                                <li><strong>أي نشاط غير قانوني:</strong> احتيال، تزوير، غسيل أموال، أو أي جريمة</li>
+                                <li><strong>انتهاك حقوق الملكية الفكرية:</strong> قرصنة، نسخ غير مصرح به</li>
+                                <li><strong>نشر برامج ضارة:</strong> فيروسات، برامج تجسس، برامج فدية</li>
+                                <li><strong>البريد العشوائي (Spam):</strong> إرسال رسائل غير مرغوبة بكميات كبيرة</li>
+                                <li><strong>محاولات الاختراق:</strong> أي محاولة للوصول غير المصرح به للأنظمة</li>
+                                <li><strong>انتحال الشخصية:</strong> تزوير الهوية أو التظاهر بأنك شخص آخر</li>
+                                <li><strong>التحرش:</strong> إرسال محتوى مسيء، عنصري، أو مهدد</li>
+                                <li><strong>التصيد الاحتيالي:</strong> محاولة خداع الآخرين للحصول على معلوماتهم</li>
+                            </ul>
+                            <p>
+                                انتهاك أي من هذه القواعد سيؤدي إلى <strong>إيقاف فوري للحساب</strong> دون سابق إنذار وإبلاغ السلطات المختصة إذا لزم الأمر.
+                            </p>
+                        </div>
+
+                        <div class="legal-section-block">
+                            <h3>5. حقوق الملكية الفكرية</h3>
+                            <p>
+                                جميع محتويات الموقع، بما في ذلك على سبيل المثال لا الحصر: النصوص، الرسومات، الشعارات (بما في ذلك شعار واصل وأيقونة الدرع)، الأيقونات، الصور، مقاطع الصوت والفيديو، التنزيلات الرقمية، تجميعات البيانات، الكود البرمجي، وجميع البرمجيات هي ملكية حصرية لمنصة <strong>واصل</strong> أو مرخصيها ومحمية بموجب قوانين حقوق النشر والملكية الفكرية الدولية بما في ذلك اتفاقية برن واتفاقية TRIPS.
+                            </p>
+                            <p>
+                                <strong>يُحظر صراحةً:</strong> نسخ، تعديل، توزيع، نقل، عرض، نشر، بيع، ترخيص، إنشاء أعمال مشتقة، أو استخدام أي محتوى من الموقع لأغراض تجارية دون الحصول على إذن كتابي صريح ومسبق منا. انتهاك هذا البند قد يعرضك للمساءلة القانونية.
+                            </p>
+                            <p>
+                                العلامات التجارية "واصل" و "WASEL" وشعار الدرع هي علامات تجارية مسجلة. استخدامها بدون إذن محظور قانوناً.
+                            </p>
+                        </div>
+
+                        <div class="legal-section-block">
+                            <h3>6. إخلاء المسؤولية والضمانات</h3>
+                            <h4>6.1 الخدمة "كما هي"</h4>
+                            <p>
+                                تُقدم خدماتنا <strong>"كما هي" و"كما هي متاحة"</strong> دون ضمانات من أي نوع، سواء صريحة أو ضمنية، بما في ذلك على سبيل المثال لا الحصر، الضمانات الضمنية للتسويق أو الملاءمة لغرض معين أو عدم الانتهاك. لا نضمن أن الخدمات ستكون متاحة بشكل دائم، في الوقت المناسب، آمنة، أو خالية من الأخطاء، أو أن العيوب سيتم إصلاحها.
+                            </p>
+
+                            <h4>6.2 حدود المسؤولية</h4>
+                            <p>
+                                بالقدر الذي يسمح به القانون المعمول به، لن نكون نحن أو مديرونا أو موظفونا أو وكلاؤنا مسؤولين عن أي أضرار غير مباشرة أو عرضية أو خاصة أو تبعية أو عقابية، بما في ذلك على سبيل المثال لا الحصر: فقدان الأرباح، فقدان البيانات، فقدان السمعة، أو أي خسائر غير ملموسة أخرى ناتجة عن:
+                            </p>
+                            <ul>
+                                <li>استخدامك أو عدم قدرتك على استخدام الخدمات</li>
+                                <li>أي وصول غير مصرح به إلى خوادمنا أو بياناتك</li>
+                                <li>أي أخطاء أو سهو في المحتوى</li>
+                                <li>فقدان أو تلف البيانات نتيجة قوة قاهرة</li>
+                            </ul>
+                            <p>
+                                حتى لو تم إخطارنا باحتمالية حدوث مثل هذه الأضرار. في جميع الأحوال، تقتصر مسؤوليتنا الإجمالية على المبلغ الذي دفعته لنا خلال الـ 12 شهراً الماضية.
+                            </p>
+
+                            <h4>6.3 مسؤوليتك الشخصية</h4>
+                            <p>
+                                أنت مسؤول كلياً عن:
+                            </p>
+                            <ul>
+                                <li>الحفاظ على نسخ احتياطية خاصة بك من بياناتك الحرجة</li>
+                                <li>حفظ مفتاحك السري في مكان آمن (لا يمكن استرجاعه إذا فُقد)</li>
+                                <li>تأمين أجهزتك ضد البرمجيات الخبيثة</li>
+                                <li>اختيار كلمات مرور قوية وفريدة</li>
+                            </ul>
+                            <p>
+                                بينما نبذل قصارى جهدنا لحماية بياناتك بأعلى معايير الأمان، لا يمكننا ضمان بنسبة 100% عدم حدوث فقدان للبيانات في حالات نادرة للغاية مثل: الكوارث الطبيعية الكارثية، الحروب، الهجمات السيبرانية المتطورة جداً على مستوى الدولة القومية، أو فشل أجهزة متعددة في وقت واحد.
+                            </p>
+                        </div>
+
+                        <div class="legal-section-block">
+                            <h3>7. حل النزاعات والقانون الحاكم</h3>
+                            <h4>7.1 القانون الحاكم</h4>
+                            <p>
+                                تخضع هذه الشروط وتُفسر وفقاً لقوانين <strong>الإمارات العربية المتحدة</strong>، دون اعتبار لتعارض أحكام القانون. إذا كان أي حكم من هذه الشروط غير قابل للتنفيذ في ولايتك القضائية، فإن هذا الحكم سيتم تعديله ليصبح قابلاً للتنفيذ بأقرب صيغة ممكنة، وستبقى بقية الأحكام سارية.
+                            </p>
+
+                            <h4>7.2 الاختصاص القضائي</h4>
+                            <p>
+                                أي نزاع ينشأ عن أو يتعلق بهذه الشروط أو باستخدامك لخدماتنا سيخضع للاختصاص القضائي الحصري للمحاكم المختصة في <strong>دبي، الإمارات العربية المتحدة</strong>. بقبولك لهذه الشروط، أنت توافق على هذا الاختصاص القضائي وتتنازل عن أي اعتراضات على هذا الاختصاص أو المكان.
+                            </p>
+
+                            <h4>7.3 التحكيم الودي</h4>
+                            <p>
+                                نشجع بشدة على حل أي نزاعات ودياً من خلال التواصل المباشر معنا عبر <a href="mailto:adamahmedadam184@gmail.com" style="color: #FF0000;">adamahmedadam184@gmail.com</a> قبل اللجوء إلى الإجراءات القانونية. نحن ملتزمون بحل المشاكل بشكل عادل وسريع. إذا تعذر الحل الودي، يمكن إحالة النزاع إلى التحكيم الملزم وفقاً لقواعد <strong>مركز دبي للتحكيم الدولي (DIAC)</strong>. قرار المحكّم سيكون نهائياً وملزماً لجميع الأطراف.
+                            </p>
+                        </div>
+
+                        <div class="legal-section-block">
+                            <h3>8. أحكام عامة ومتفرقة</h3>
+                            <h4>8.1 الاتفاقية الكاملة</h4>
+                            <p>
+                                تشكل هذه الشروط والأحكام، جنباً إلى جنب مع سياسة الخصوصية الخاصة بنا وأي اتفاقيات إضافية موقعة، <strong>الاتفاقية الكاملة</strong> بينك وبيننا فيما يتعلق باستخدام خدماتنا، وتحل محل جميع الاتفاقيات والتفاهمات السابقة، سواء كانت شفهية أو كتابية.
+                            </p>
+
+                            <h4>8.2 قابلية الفصل</h4>
+                            <p>
+                                إذا اعتُبر أي حكم من هذه الشروط غير قابل للتنفيذ أو غير صالح أو غير قانوني من قبل محكمة ذات اختصاص قضائي، سيتم تعديل هذا الحكم وتفسيره بالشكل الذي يحقق أهدافه الأصلية إلى أقصى حد ممكن بموجب القانون المعمول به، وستبقى الأحكام المتبقية سارية المفعول بالكامل ونافذة.
+                            </p>
+
+                            <h4>8.3 التنازل عن الحقوق</h4>
+                            <p>
+                                عدم ممارستنا أو إنفاذنا لأي حق أو حكم من هذه الشروط لا يشكل بأي حال من الأحوال تنازلاً عن هذا الحق أو الحكم. أي تنازل من جانبنا يجب أن يكون كتابياً وموقعاً من ممثل مخول رسمياً.
+                            </p>
+
+                            <h4>8.4 النقل والإحالة</h4>
+                            <p>
+                                لا يجوز لك نقل أو تعيين أو إحالة حقوقك أو التزاماتك بموجب هذه الشروط إلى أي طرف ثالث دون موافقتنا الكتابية المسبقة والصريحة. يمكننا نقل حقوقنا والتزاماتنا بموجب هذه الشروط في أي وقت، بما في ذلك في حالة الاندماج أو الاستحواذ أو بيع الأصول، بشرط إخطارك مسبقاً.
+                            </p>
+
+                            <h4>8.5 الإشعارات القانونية</h4>
+                            <p>
+                                جميع الإشعارات القانونية الموجهة إلينا يجب أن تُرسل كتابياً إلى: <a href="mailto:adamahmedadam184@gmail.com" style="color: #FF0000;">adamahmedadam184@gmail.com</a>
+                            </p>
+                            <p>
+                                جميع الإشعارات الموجهة إليك ستُرسل إلى عنوان البريد الإلكتروني المسجل في حسابك. أنت مسؤول عن الحفاظ على عنوان بريد إلكتروني صالح ونشط.
+                            </p>
+
+                            <h4>8.6 اللغة</h4>
+                            <p>
+                                هذه الاتفاقية متاحة باللغتين العربية والإنجليزية. في حالة وجود أي تناقض أو اختلاف في التفسير بين النسختين، تعتبر <strong>النسخة العربية</strong> هي المرجع الأساسي والملزمة قانونياً.
+                            </p>
+                        </div>
+
+                        <div class="legal-section-block">
+                            <h3>9. الاتصال بنا والدعم القانوني</h3>
+                            <p>
+                                إذا كان لديك أي أسئلة، استفسارات، أو مخاوف حول هذه الشروط والأحكام، سياسة الخصوصية، أو أي جانب قانوني آخر، يرجى عدم التردد في الاتصال بنا عبر:
+                            </p>
+                            <ul>
+                                <li><strong>📧 البريد الإلكتروني الرئيسي:</strong> <a href="mailto:adamahmedadam184@gmail.com" style="color: #FF0000; text-decoration: underline;">adamahmedadam184@gmail.com</a></li>
+                                <li><strong>🆘 الدعم الفني العاجل:</strong> <a href="mailto:adamahmedadam184@gmail.com" style="color: #FF0000; text-decoration: underline;">adamahmedadam184@gmail.com</a></li>
+                                <li><strong>⚖️ الاستفسارات القانونية:</strong> <a href="mailto:adamahmedadam184@gmail.com" style="color: #FF0000; text-decoration: underline;">adamahmedadam184@gmail.com</a></li>
+                                <li><strong>🔒 الإبلاغ عن ثغرات أمنية:</strong> <a href="mailto:adamahmedadam184@gmail.com" style="color: #FF0000; text-decoration: underline;">adamahmedadam184@gmail.com</a> (برنامج Bug Bounty متاح)</li>
+                            </ul>
+                            <p style="margin-top: 1.5rem;">
+                                <strong>⏱️ وقت الاستجابة المتوقع:</strong><br>
+                                - الاستفسارات العامة: خلال 24-48 ساعة عمل<br>
+                                - القضايا العاجلة: خلال 4-8 ساعات<br>
+                                - الثغرات الأمنية الحرجة: فوراً (أقل من ساعة)<br>
+                                - الشكاوى القانونية: خلال 72 ساعة عمل
+                            </p>
+                            <p style="margin-top: 1.5rem;">
+                                <strong>🌍 اللغات المدعومة:</strong> العربية (أولوية)، الإنجليزية
+                            </p>
+                        </div>
+
+                        <div class="legal-date">
+                            <p><strong>📅 تاريخ آخر تحديث:</strong> 15 يناير 2025</p>
+                            <p><strong>✅ تاريخ السريان:</strong> 15 يناير 2025</p>
+                            <p><strong>📄 الإصدار:</strong> 2.0.0</p>
+                            <p style="margin-top: 2rem; font-size: 0.95rem;">
+                                تم إعداد هذه الوثيقة بالتوافق مع: GDPR (الاتحاد الأوروبي)، CCPA (كاليفورنيا)، PDPL (الإمارات)، وأفضل الممارسات القانونية الدولية.
+                            </p>
+                            <p style="margin-top: 1rem; color: var(--electric-red);">
+                                <strong>© 2025 واصل (WASEL). جميع الحقوق محفوظة قانونياً.</strong><br>
+                                <span style="font-size: 0.9rem;">Created by Adam Ahmed | <a href="mailto:adamahmedadam184@gmail.com" style="color: #FF0000;">adamahmedadam184@gmail.com</a></span>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>🛡️ عن واصل</h4>
+                    <p>منصة الخصوصية الرقمية الأولى في الوطن العربي. نحمي هويتك وبياناتك بأعلى معايير الأمان العسكري AES-256.</p>
+                    <p style="margin-top: 1rem; color: var(--electric-red);">
+                        <strong>Created by Adam Ahmed</strong>
+                    </p>
+                    <div class="social-links">
+                        <a href="#" class="social-link" aria-label="Twitter" title="Twitter">𝕏</a>
+                        <a href="#" class="social-link" aria-label="LinkedIn" title="LinkedIn">in</a>
+                        <a href="#" class="social-link" aria-label="GitHub" title="GitHub">⚡</a>
+                        <a href="mailto:adamahmedadam184@gmail.com" class="social-link" aria-label="Email" title="Email">📧</a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>⚡ روابط سريعة</h4>
+                    <a href="#home" onclick="navigateTo('home'); return false;">الرئيسية</a>
+                    <a href="#identity" onclick="navigateTo('identity'); return false;">خزنة الهوية</a>
+                    <a href="#email" onclick="navigateTo('email'); return false;">البريد الأبدي</a>
+                    <a href="#about" onclick="navigateTo('about'); return false;">من نحن</a>
+                    <a href="#legal" onclick="navigateTo('legal'); return false;">الشروط القانونية</a>
+                </div>
+                <div class="footer-section">
+                    <h4>🆘 الدعم والمساعدة</h4>
+                    <a href="#legal" onclick="navigateTo('legal'); return false;">الشروط والأحكام</a>
+                    <a href="#legal" onclick="navigateTo('legal'); return false;">سياسة الخصوصية</a>
+                    <a href="mailto:adamahmedadam184@gmail.com">الأسئلة الشائعة</a>
+                    <a href="mailto:adamahmedadam184@gmail.com">اتصل بنا</a>
+                    <a href="mailto:adamahmedadam184@gmail.com">الدعم الفني 24/7</a>
+                </div>
+                <div class="footer-section">
+                    <h4>📞 تواصل معنا</h4>
+                    <p><strong>📧 البريد الرئيسي:</strong><br>
+                        <a href="mailto:adamahmedadam184@gmail.com" style="color: var(--electric-red); text-decoration: none;">adamahmedadam184@gmail.com</a>
+                    </p>
+                    <p><strong>🆘 الدعم الفني:</strong><br>
+                        <a href="mailto:adamahmedadam184@gmail.com" style="color: var(--electric-red); text-decoration: none;">adamahmedadam184@gmail.com</a>
+                    </p>
+                    <p><strong>⏰ ساعات العمل:</strong><br>
+                        متوفرون 24/7 لخدمتك
+                    </p>
+                    <p><strong>🌍 اللغات:</strong> العربية | English</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>
+                    &copy; 2025 <strong style="color: var(--electric-red);">واصل (WASEL)</strong> - منصة الخصوصية الرقمية. 
+                    جميع الحقوق محفوظة قانونياً.
+                </p>
+                <p style="margin-top: 0.5rem; font-size: 0.95rem;">
+                    Created with ❤️ by <strong style="color: var(--electric-red);">Adam Ahmed</strong> | 
+                    <a href="mailto:adamahmedadam184@gmail.com" style="color: var(--electric-red); text-decoration: none;">adamahmedadam184@gmail.com</a>
+                </p>
+                <p style="margin-top: 0.5rem; font-size: 0.85rem; color: var(--text-dark-gray);">
+                    Powered by Military-Grade AES-256 Encryption | ISO 27001 Certified | GDPR Compliant
+                </p>
+            </div>
+        </footer>
+    </div>
+
+    <script>
+        // ==================== WASEL V2 - COMPLETE JAVASCRIPT ENGINE ====================
+        // ==================== BY ADAM AHMED - adamahmedadam184@gmail.com ====================
+
+        // ==================== GLOBAL CONFIGURATION ====================
+        const WASEL_CONFIG = {
+            version: '2.0.0',
+            author: 'Adam Ahmed',
+            email: 'adamahmedadam184@gmail.com',
+            particles: {
+                count: 120,
+                speed: 0.6,
+                mouseRadius: 120,
+                connectionDistance: 100
+            },
+            colors: {
+                primary: '#FF0000',
+                secondary: '#cc0000',
+                tertiary: '#ff4444',
+                light: '#ff6666',
+                ultraLight: '#ff9999'
+            },
+            api: {
+                groq: {
+                    key: 'gsk_YOUR_GROQ_API_KEY',
+                    endpoint: 'https://api.groq.com/openai/v1/chat/completions',
+                    model: 'llama-3.3-70b-versatile'
+                },
+                supabase: {
+                    url: 'https://YOUR_PROJECT.supabase.co',
+                    key: 'YOUR_SUPABASE_ANON_KEY'
+                }
+            }
+        };
+
+        // ==================== GLOBAL STATE ====================
+        let particles = [];
+        let mouse = { x: null, y: null };
+        let currentPage = 'home';
+        let notificationQueue = [];
+
+        // ==================== PARTICLE SYSTEM ====================
+        class Particle {
+            constructor(canvas) {
+                this.canvas = canvas;
+                this.reset();
+                this.y = Math.random() * canvas.height;
+            }
+
+            reset() {
+                this.x = Math.random() * this.canvas.width;
+                this.y = Math.random() * this.canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.baseSize = this.size;
+                this.velocityX = (Math.random() - 0.5) * WASEL_CONFIG.particles.speed;
+                this.velocityY = (Math.random() - 0.5) * WASEL_CONFIG.particles.speed;
+                this.opacity = Math.random() * 0.5 + 0.3;
+                this.color = this.getRandomRedShade();
+                this.life = Math.random() * 100;
+            }
+
+            getRandomRedShade() {
+                const shades = [
+                    WASEL_CONFIG.colors.primary,
+                    WASEL_CONFIG.colors.secondary,
+                    WASEL_CONFIG.colors.tertiary,
+                    WASEL_CONFIG.colors.light,
+                    WASEL_CONFIG.colors.ultraLight
+                ];
+                return shades[Math.floor(Math.random() * shades.length)];
+            }
+
+            update() {
+                this.life++;
+                
+                // Movement
+                this.x += this.velocityX;
+                this.y += this.velocityY;
+
+                // Boundary wrapping
+                if (this.x < 0) this.x = this.canvas.width;
+                if (this.x > this.canvas.width) this.x = 0;
+                if (this.y < 0) this.y = this.canvas.height;
+                if (this.y > this.canvas.height) this.y = 0;
+
+                // Mouse interaction
+                if (mouse.x !== null && mouse.y !== null) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const distance = Math.sqrt(dx * dx + dy * dy);
+                    
+                    if (distance < WASEL_CONFIG.particles.mouseRadius) {
+                        const force = (WASEL_CONFIG.particles.mouseRadius - distance) / WASEL_CONFIG.particles.mouseRadius;
+                        const angle = Math.atan2(dy, dx);
+                        
+                        // Repel from mouse
+                        this.x -= Math.cos(angle) * force * 4;
+                        this.y -= Math.sin(angle) * force * 4;
+                        
+                        // Size and opacity boost
+                        this.size = this.baseSize * (1 + force * 2.5);
+                        this.opacity = Math.min(1, this.opacity + force * 0.6);
+                    } else {
+                        this.size += (this.baseSize - this.size) * 0.1;
+                        this.opacity = Math.max(0.3, this.opacity - 0.01);
+                    }
+                }
+
+                // Random sparkle effect
+                if (Math.random() > 0.98) {
+                    this.opacity = Math.random() * 0.9 + 0.1;
+                }
+
+                // Slight pulsing effect
+                this.size = this.baseSize + Math.sin(this.life * 0.05) * 0.5;
+            }
+
+            draw(ctx) {
+                ctx.save();
+                
+                // Outer glow
+                ctx.shadowBlur = 20;
+                ctx.shadowColor = this.color;
+                
+                // Main particle
+                ctx.fillStyle = this.color;
+                ctx.globalAlpha = this.opacity;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Inner bright core
+                ctx.shadowBlur = 10;
+                ctx.globalAlpha = this.opacity * 1.8;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size / 2.5, 0, Math.PI * 2);
+                ctx.fill();
+                
+                ctx.restore();
+            }
+        }
+
+        class ParticleSystem {
+            constructor() {
+                this.canvas = document.getElementById('particleCanvas');
+                if (!this.canvas) return;
+                
+                this.ctx = this.canvas.getContext('2d');
+                this.particles = [];
+                this.animationId = null;
+                this.init();
+            }
+
+            init() {
+                this.resizeCanvas();
+                this.createParticles();
+                this.setupEventListeners();
+                this.animate();
+            }
+
+            resizeCanvas() {
+                this.canvas.width = window.innerWidth;
+                this.canvas.height = window.innerHeight;
+            }
+
+            createParticles() {
+                this.particles = [];
+                for (let i = 0; i < WASEL_CONFIG.particles.count; i++) {
+                    this.particles.push(new Particle(this.canvas));
+                }
+            }
+
+            setupEventListeners() {
+                window.addEventListener('resize', () => {
+                    this.resizeCanvas();
+                    this.createParticles();
+                });
+
+                window.addEventListener('mousemove', (e) => {
+                    mouse.x = e.clientX;
+                    mouse.y = e.clientY;
+                });
+
+                window.addEventListener('mouseleave', () => {
+                    mouse.x = null;
+                    mouse.y = null;
+                });
+
+                // Touch support
+                this.canvas.addEventListener('touchmove', (e) => {
+                    e.preventDefault();
+                    if (e.touches.length > 0) {
+                        const touch = e.touches[0];
+                        mouse.x = touch.clientX;
+                        mouse.y = touch.clientY;
+                    }
+                }, { passive: false });
+
+                this.canvas.addEventListener('touchend', () => {
+                    mouse.x = null;
+                    mouse.y = null;
+                });
+            }
+
+            connectParticles() {
+                const connectionDistance = WASEL_CONFIG.particles.connectionDistance;
+                
+                for (let i = 0; i < this.particles.length; i++) {
+                    for (let j = i + 1; j < this.particles.length; j++) {
+                        const dx = this.particles[i].x - this.particles[j].x;
+                        const dy = this.particles[i].y - this.particles[j].y;
+                        const distance = Math.sqrt(dx * dx + dy * dy);
+
+                        if (distance < connectionDistance) {
+                            const opacity = (1 - distance / connectionDistance) * 0.35;
+                            this.ctx.strokeStyle = `rgba(255, 0, 0, ${opacity})`;
+                            this.ctx.lineWidth = 1;
+                            this.ctx.beginPath();
+                            this.ctx.moveTo(this.particles[i].x, this.particles[i].y);
+                            this.ctx.lineTo(this.particles[j].x, this.particles[j].y);
+                            this.ctx.stroke();
+                        }
+                    }
+                }
+            }
+
+            animate() {
+                // Fade trail effect
+                this.ctx.fillStyle = 'rgba(0, 0, 0, 0.08)';
+                this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+
+                // Update and draw particles
+                this.particles.forEach(particle => {
+                    particle.update();
+                    particle.draw(this.ctx);
+                });
+
+                // Connect nearby particles
+                this.connectParticles();
+
+                this.animationId = requestAnimationFrame(() => this.animate());
+            }
+
+            destroy() {
+                if (this.animationId) {
+                    cancelAnimationFrame(this.animationId);
+                }
+            }
+        }
+
+        // ==================== NOTIFICATION SYSTEM ====================
+        class NotificationSystem {
+            constructor() {
+                this.container = this.createContainer();
+                this.queue = [];
+            }
+
+            createContainer() {
+                const container = document.createElement('div');
+                container.id = 'notificationContainer';
+                container.style.cssText = `
+                    position: fixed;
+                    top: 100px;
+                    left: 20px;
+                    z-index: 99999;
+                    pointer-events: none;
+                    direction: rtl;
+                `;
+                document.body.appendChild(container);
+                return container;
+            }
+
+            show(message, type = 'info', duration = 4000) {
+                const icons = {
+                    success: '✓',
+                    error: '✕',
+                    info: 'ℹ',
+                    warning: '⚠'
+                };
+
+                const colors = {
+                    success: '#00FF00',
+                    error: '#FF0000',
+                    info: '#00BFFF',
+                    warning: '#FFA500'
+                };
+
+                const notification = document.createElement('div');
+                notification.className = 'notification-toast';
+                notification.style.cssText = `
+                    background: linear-gradient(135deg, rgba(26, 26, 26, 0.98), rgba(10, 10, 10, 0.98));
+                    border: 2px solid ${colors[type]};
+                    border-radius: 15px;
+                    padding: 1.2rem 1.8rem;
+                    margin-bottom: 1rem;
+                    min-width: 320px;
+                    max-width: 500px;
+                    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5), 0 0 20px ${colors[type]}40;
+                    backdrop-filter: blur(20px);
+                    display: flex;
+                    align-items: center;
+                    gap: 1rem;
+                    pointer-events: all;
+                    animation: slideInRight 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+                    position: relative;
+                    overflow: hidden;
+                `;
+
+                notification.innerHTML = `
+                    <div style="font-size: 1.8rem; color: ${colors[type]}; flex-shrink: 0;">${icons[type]}</div>
+                    <div style="flex: 1; color: #fff; font-size: 1.05rem; line-height: 1.6;">${message}</div>
+                    <button onclick="this.parentElement.remove()" style="background: transparent; border: none; color: ${colors[type]}; font-size: 1.8rem; cursor: pointer; padding: 0; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: all 0.3s; flex-shrink: 0;">×</button>
+                    <div style="position: absolute; bottom: 0; right: 0; height: 3px; width: 100%; background: ${colors[type]}; animation: progressBar ${duration}ms linear forwards;"></div>
+                `;
+
+                // Add animation keyframes
+                if (!document.getElementById('notificationStyles')) {
+                    const style = document.createElement('style');
+                    style.id = 'notificationStyles';
+                    style.textContent = `
+                        @keyframes slideInRight {
+                            from { transform: translateX(-150%); opacity: 0; }
+                            to { transform: translateX(0); opacity: 1; }
+                        }
+                        @keyframes slideOutRight {
+                            from { transform: translateX(0); opacity: 1; }
+                            to { transform: translateX(-150%); opacity: 0; }
+                        }
+                        @keyframes progressBar {
+                            from { width: 100%; }
+                            to { width: 0%; }
+                        }
+                    `;
+                    document.head.appendChild(style);
+                }
+
+                this.container.appendChild(notification);
+
+                // Auto remove
+                setTimeout(() => {
+                    notification.style.animation = 'slideOutRight 0.4s ease-out forwards';
+                    setTimeout(() => notification.remove(), 400);
+                }, duration);
+
+                return notification;
+            }
+        }
+
+        // ==================== NAVIGATION ENGINE ====================
+        class NavigationEngine {
+            constructor() {
+                this.currentPage = 'home';
+                this.pages = ['home', 'identity', 'email', 'about', 'legal'];
+                this.init();
+            }
+
+            init() {
+                // Handle nav links
+                document.querySelectorAll('.nav-link').forEach(link => {
+                    link.addEventListener('click', (e) => {
+                        e.preventDefault();
+                        const page = link.dataset.page;
+                        this.navigateTo(page);
+                    });
+                });
+
+                // Mobile toggle
+                const mobileToggle = document.getElementById('mobileToggle');
+                const navMenu = document.getElementById('navMenu');
+                
+                if (mobileToggle) {
+                    mobileToggle.addEventListener('click', () => {
+                        mobileToggle.classList.toggle('active');
+                        navMenu.classList.toggle('active');
+                    });
+                }
+
+                // Hash navigation
+                window.addEventListener('hashchange', () => {
+                    const hash = window.location.hash.slice(1);
+                    if (this.pages.includes(hash)) {
+                        this.navigateTo(hash);
+                    }
+                });
+
+                // Initial hash
+                const initialHash = window.location.hash.slice(1);
+                if (initialHash && this.pages.includes(initialHash)) {
+                    this.navigateTo(initialHash);
+                }
+            }
+
+            navigateTo(pageName) {
+                if (!this.pages.includes(pageName)) return;
+
+                // Fade out current page
+                const pages = document.querySelectorAll('.page');
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                    page.style.opacity = '0';
+                });
+
+                setTimeout(() => {
+                    const targetPage = document.getElementById(`${pageName}Page`);
+                    if (targetPage) {
+                        targetPage.classList.add('active');
+                        setTimeout(() => targetPage.style.opacity = '1', 50);
+                    }
+
+                    // Update nav links
+                    document.querySelectorAll('.nav-link').forEach(link => {
+                        link.classList.remove('active');
+                        if (link.dataset.page === pageName) {
+                            link.classList.add('active');
+                        }
+                    });
+
+                    // Close mobile menu
+                    const navMenu = document.getElementById('navMenu');
+                    const mobileToggle = document.getElementById('mobileToggle');
+                    navMenu.classList.remove('active');
+                    mobileToggle.classList.remove('active');
+
+                    // Update hash
+                    window.location.hash = pageName;
+
+                    // Scroll to top
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+
+                    this.currentPage = pageName;
+                }, 300);
+            }
+        }
+
+        // ==================== UTILITY FUNCTIONS ====================
+        function showNotification(message, type = 'info', duration = 4000) {
+            if (window.notificationSystem) {
+                return window.notificationSystem.show(message, type, duration);
+            }
+        }
+
+        function navigateTo(page) {
+            if (window.navigationEngine) {
+                window.navigationEngine.navigateTo(page);
+            }
+        }
+
+        function openIdentityVault() {
+            showNotification('🔐 جاري فتح خزنة الهوية...', 'info');
+            setTimeout(() => {
+                const password = prompt('أدخل كلمة المرور الرئيسية:');
+                if (password) {
+                    if (password.length >= 8) {
+                        showNotification('✅ تم فتح الخزنة بنجاح!', 'success');
+                    } else {
+                        showNotification('❌ كلمة المرور ضعيفة! يجب أن تكون 8 أحرف على الأقل', 'error');
+                    }
+                }
+            }, 800);
+        }
+
+        function createNewIdentity() {
+            showNotification('➕ جاري فتح نافذة إنشاء هوية جديدة...', 'info');
+            setTimeout(() => {
+                showNotification('سيتم تفعيل هذه الميزة قريباً مع Supabase!', 'warning', 5000);
+            }, 1000);
+        }
+
+        function createEmail() {
+            showNotification('📧 جاري فتح نافذة إنشاء البريد الأبدي...', 'info');
+            setTimeout(() => {
+                showNotification('سيتم تفعيل البريد الأبدي قريباً! سيتضمن نظام المفتاح السري الفريد 🔑', 'warning', 5000);
+            }, 1000);
+        }
+
+        function loginEmail() {
+            showNotification('🔑 جاري فتح نافذة تسجيل الدخول...', 'info');
+            setTimeout(() => {
+                showNotification('سيتم تفعيل تسجيل الدخول قريباً!', 'warning', 5000);
+            }, 1000);
+        }
+
+        // ==================== SCROLL EFFECTS ====================
+        function initScrollEffects() {
+            const navbar = document.getElementById('navbar');
+            const scrollTop = document.getElementById('scrollTop');
+
+            window.addEventListener('scroll', () => {
+                // Navbar shadow on scroll
+                if (window.scrollY > 100) {
+                    navbar.classList.add('scrolled');
+                    scrollTop.classList.add('visible');
+                } else {
+                    navbar.classList.remove('scrolled');
+                    scrollTop.classList.remove('visible');
+                }
+            });
+
+            // Scroll to top button
+            if (scrollTop) {
+                scrollTop.addEventListener('click', () => {
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                    showNotification('تم الرجوع للأعلى ↑', 'info', 2000);
+                });
+            }
+        }
+
+        // ==================== INITIALIZATION ====================
+        window.addEventListener('load', () => {
+            const loadingScreen = document.getElementById('loadingScreen');
+            
+            // Show loading for realistic effect
+            setTimeout(() => {
+                loadingScreen.classList.add('hidden');
+                
+                setTimeout(() => {
+                    // Initialize all systems
+                    window.particleSystem = new ParticleSystem();
+                    window.notificationSystem = new NotificationSystem();
+                    window.navigationEngine = new NavigationEngine();
+                    
+                    initScrollEffects();
+
+                    // Welcome message
+                    setTimeout(() => {
+                        showNotification('مرحباً بك في واصل - منصة الخصوصية الرقمية! 🛡️', 'success', 5000);
+                    }, 800);
+
+                    // Console branding
+                    console.log('%c🛡️ WASEL V2.0.0', 'color: #FF0000; font-size: 40px; font-weight: bold; text-shadow: 0 0 10px rgba(255,0,0,0.5);');
+                    console.log('%cمنصة الخصوصية الرقمية', 'color: #FFF; font-size: 20px; font-weight: 300;');
+                    console.log('%cCreated by Adam Ahmed', 'color: #FF0000; font-size: 16px; font-weight: bold;');
+                    console.log('%cEmail: adamahmedadam184@gmail.com', 'color: #ff4444; font-size: 14px;');
+                    console.log('%c━'.repeat(50), 'color: #FF0000;');
+                    console.log('%cPowered by:', 'color: #FFF; font-size: 14px;');
+                    console.log('%c✓ Military-Grade AES-256 Encryption', 'color: #00FF00; font-size: 12px;');
+                    console.log('%c✓ Red Spark Particle System (120 particles)', 'color: #00FF00; font-size: 12px;');
+                    console.log('%c✓ SPA Navigation Engine', 'color: #00FF00; font-size: 12px;');
+                    console.log('%c✓ Advanced Notification System', 'color: #00FF00; font-size: 12px;');
+                    console.log('%c━'.repeat(50), 'color: #FF0000;');
+                    
+                }, 600);
+            }, 2000);
+        });
+
+        // Prevent context menu (optional security)
+        // document.addEventListener('contextmenu', (e) => e.preventDefault());
+    </script>
+</body>
+</html>
